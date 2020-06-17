@@ -1,13 +1,13 @@
-package com.cloud.common;
+package com.cloud.bsspbus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CommonApplication {
+public class BsspBusApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CommonApplication.class, args);
+        SpringApplication.run(BsspBusApplication.class, args);
     }
 
 }

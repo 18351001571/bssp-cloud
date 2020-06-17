@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.cloud</groupId>
-    <artifactId>common</artifactId>
+    <artifactId>bssp-bus</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>common</name>
+    <name>bssp-bus</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
