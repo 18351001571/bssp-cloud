@@ -1,0 +1,15 @@
+package ${package}.dao;
+
+import ${package}.entity.${className};
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+/**
+ * <p>
+ * $!{className} Mapper 接口
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ${className}Mapper extends BaseMapper<${className}> {
+}
