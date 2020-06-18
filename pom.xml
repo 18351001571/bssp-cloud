@@ -25,7 +25,6 @@
         <mysql.version>5.1.49</mysql.version>
         <velocity.version>2.2</velocity.version>
         <nacos.version>2.2.1.RELEASE</nacos.version>
-        <knife4j.version>2.0.3</knife4j.version>
     </properties>
 
     <modules>

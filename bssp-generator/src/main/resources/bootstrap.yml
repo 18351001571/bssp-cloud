@@ -10,5 +10,11 @@ spring:
         namespace: 3a44ef28-b35c-44bb-8cd2-873c14ebc911
         group: DEFAULT_GROUP
         file-extension: yml
-
-
+knife4j:
+  isOpen: true
+  basePackage: com.cloud.bssp
+  title: bssp-generator api
+  serviceUrl:
+  describe: 接口文档
+  author: weirx
+  version: 1.0
