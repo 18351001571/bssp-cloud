@@ -1,31 +1,23 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
+.DS_Store
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+**/*.log
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+tests/**/coverage/
+tests/e2e/reports
+selenium-debug.log
 
-### IntelliJ IDEA ###
+# Editor directories and files
 .idea
-*.iws
-*.iml
-*.ipr
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.local
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-
-### VS Code ###
-.vscode/
+package-lock.json
+yarn.lock
