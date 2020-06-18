@@ -1,4 +1,4 @@
-package com.cloud.bssp.data.config.generator;
+package com.cloud.bssp.generator.util;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

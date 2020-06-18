@@ -1,14 +1,14 @@
-package com.cloud.bssp.data.config.generator;
- 
-import java.io.File;
-import java.io.IOException;
- 
+package com.cloud.bssp.generator.util;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.io.File;
+import java.io.IOException;
  
 @SpringBootTest
 @RunWith(SpringRunner.class)

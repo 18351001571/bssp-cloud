@@ -1,4 +1,4 @@
-package com.cloud.bssp.data.config.generator;
+package com.cloud.bssp.generator.util;
 
 public class ColumnEntity {
     // 列名

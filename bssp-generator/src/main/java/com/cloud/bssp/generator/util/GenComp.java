@@ -1,4 +1,4 @@
-package com.cloud.bssp.data.config.generator;
+package com.cloud.bssp.generator.util;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;

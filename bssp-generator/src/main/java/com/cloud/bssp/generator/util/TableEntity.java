@@ -1,5 +1,6 @@
-package com.cloud.bssp.data.config.generator;
- 
+package com.cloud.bssp.generator.util;
+
+
 import java.util.List;
  
 public class TableEntity {
