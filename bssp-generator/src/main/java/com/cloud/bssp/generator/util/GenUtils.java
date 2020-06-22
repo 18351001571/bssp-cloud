@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,18 +41,19 @@ public class GenUtils {
 
     public static List<String> getTemplates() {
         List<String> templates = new ArrayList<>();
-        templates.add("com/cloud/bssp/data/config/generator/velocity/Entity.java.vm");
-        templates.add("com/cloud/bssp/data/config/generator/velocity/Service.java.vm");
-        templates.add("com/cloud/bssp/data/config/generator/velocity/ServiceImpl.java.vm");
-        templates.add("com/cloud/bssp/data/config/generator/velocity/Mapper.java.vm");
-        //templates.add("com/cloud/bssp/data/config/generator/velocity/Controller.java.vm");
+        templates.add("template/Entity.java.vm");
+        templates.add("template/Service.java.vm");
+        templates.add("template/ServiceImpl.java.vm");
+        templates.add("template/Mapper.java.vm");
+        templates.add("template/Controller.java.vm");
         return templates;
     }
 
     /**
      * 生成代码
      */
-    public static void generatorCode(Map<String, Object> table, List<Map<String, Object>> columns, ZipOutputStream zip) {
+    public static void generatorCode(Map<String, Object> table, List<Map<String, Object>> columns,
+                                     ZipOutputStream zip, String author,String packageName) {
         // 表信息
         TableEntity tableEntity = new TableEntity();
         tableEntity.setTableName(table.get("tableName") + "");
@@ -105,8 +108,8 @@ public class GenUtils {
         map.put("classname", tableEntity.getClassname());
         map.put("pathName", tableEntity.getClassname().toLowerCase());
         map.put("columns", tableEntity.getColumns());
-        map.put("package", CommonMap.javaTypeMap.get("package"));
-        map.put("author", CommonMap.javaTypeMap.get("author"));
+        map.put("package", packageName);
+        map.put("author", author);
         map.put("date", format(new Date(), DATE_PATTERN));
 //		map.put("db", db);
         map.put("jdk", CommonMap.javaTypeMap.get("jdk"));
@@ -123,7 +126,7 @@ public class GenUtils {
 
             try {
                 // 添加到zip
-                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), CommonMap.javaTypeMap.get("package"))));
+                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), packageName)));
                 IOUtils.write(sw.toString(), zip, "UTF-8");
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
@@ -159,7 +162,7 @@ public class GenUtils {
             packagePath += packageName.replace(".", File.separator) + File.separator;
         }
         if (template.contains("Entity.java.vm")) {
-            return packagePath + "entity" + File.separator + className + ".java";
+            return packagePath + "entity" + File.separator + className + "DO.java";
         }
         if (template.contains("Service.java.vm")) {
             return packagePath + "service" + File.separator + className + "Service.java";
@@ -169,6 +172,9 @@ public class GenUtils {
         }
         if (template.contains("Mapper.java.vm")) {
             return packagePath + "mapper" + File.separator + className + "Mapper.java";
+        }
+        if (template.contains("Controller.java.vm")) {
+            return packagePath + "controller" + File.separator + className + "Controller.java";
         }
         return null;
     }

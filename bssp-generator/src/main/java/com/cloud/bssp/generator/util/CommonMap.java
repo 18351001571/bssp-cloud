@@ -39,9 +39,9 @@ public class CommonMap {
         javaTypeMap.put("datetime", "LocalDateTime");
         javaTypeMap.put("timestamp", "LocalDateTime");
 
-        javaTypeMap.put("tablePrefix", "");// 前缀
-        javaTypeMap.put("package", "com.waterelephant.common");//包名
-        javaTypeMap.put("author", "yueyiming");//作者
+        javaTypeMap.put("tablePrefix", "bssp_");// 前缀
+        javaTypeMap.put("package", "com.cloud.bssp.");//包名
+        javaTypeMap.put("author", "weirx");//作者
         javaTypeMap.put("jdk", "1.8");
         javaTypeMap.put("version", "1.0");
     }

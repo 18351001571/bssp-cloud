@@ -9,7 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.io.IOException;
- 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class MybatisDemoApplicationTests {
@@ -19,7 +21,9 @@ public class MybatisDemoApplicationTests {
  
 	@Test
 	public void test() {
-		 byte[] zipByte = genComp.generatorCode();
+		List<String> list = new ArrayList<>();
+		list.add("bssp_sys_menu");
+		 byte[] zipByte = genComp.generatorCode(list, "weirx","com.cloud.bssp.data.sysmenu");
          try {
             //生成路径
 			FileUtils.writeByteArrayToFile(new File("D:\\1.zip"), zipByte);

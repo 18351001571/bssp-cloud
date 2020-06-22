@@ -1,10 +1,10 @@
 package ${package}.service;
 
-import ${package}.entity.${className};
+import ${package}.entity.${className}DO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * Module: ${className}.java
+ * Module: ${className}Service.java
  *
  * @author ${author}
  * @since JDK ${jdk}
@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @date ${date}
  * @Descriptions:
  */
-public interface ${className}Service extends IService<${className}> {
+public interface ${className}Service extends IService<${className}DO> {
 }
