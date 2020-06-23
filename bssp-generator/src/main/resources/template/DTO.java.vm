@@ -1,0 +1,34 @@
+package ${package}.dto;
+
+    #foreach ($column in $columns)
+        #if($column.attrType == 'LocalDate')
+import java.time.LocalDate;
+            #break
+        #end
+    #end
+    #foreach ($column in $columns)
+        #if($column.attrType == 'LocalDateTime')
+import java.time.LocalDateTime;
+            #break
+        #end
+    #end
+import lombok.Data;
+/**
+ * Module: ${className}DTO.java
+ *
+ * @author ${author}
+ * @since JDK ${jdk}
+ * @version ${version}
+ * @date ${date}
+ * @Descriptions: ${comments}
+ */
+@Data
+public class ${className}DTO  {
+
+#foreach ($column in $columns)
+    /**
+     * $column.comments
+     */
+    private $column.attrType $column.attrname;
+#end
+}

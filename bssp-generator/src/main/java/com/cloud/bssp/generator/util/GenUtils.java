@@ -6,8 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +17,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class GenUtils {
+
     /**
      * 时间格式(yyyy-MM-dd)
      */
@@ -46,6 +46,8 @@ public class GenUtils {
         templates.add("template/ServiceImpl.java.vm");
         templates.add("template/Mapper.java.vm");
         templates.add("template/Controller.java.vm");
+        templates.add("template/DTO.java.vm");
+        templates.add("template/Client.java.vm");
         return templates;
     }
 
@@ -53,7 +55,7 @@ public class GenUtils {
      * 生成代码
      */
     public static void generatorCode(Map<String, Object> table, List<Map<String, Object>> columns,
-                                     ZipOutputStream zip, String author,String packageName) {
+                                     ZipOutputStream zip, String author, String packageName, String serviceName) {
         // 表信息
         TableEntity tableEntity = new TableEntity();
         tableEntity.setTableName(table.get("tableName") + "");
@@ -114,6 +116,7 @@ public class GenUtils {
 //		map.put("db", db);
         map.put("jdk", CommonMap.javaTypeMap.get("jdk"));
         map.put("version", CommonMap.javaTypeMap.get("version"));
+        map.put("serviceName", serviceName);
         VelocityContext context = new VelocityContext(map);
 
         // 获取模板列表
@@ -175,6 +178,12 @@ public class GenUtils {
         }
         if (template.contains("Controller.java.vm")) {
             return packagePath + "controller" + File.separator + className + "Controller.java";
+        }
+        if (template.contains("DTO.java.vm")) {
+            return packagePath + "dto" + File.separator + className + "DTO.java";
+        }
+        if (template.contains("Client.java.vm")) {
+            return packagePath + "api" + File.separator + className + "Client.java";
         }
         return null;
     }

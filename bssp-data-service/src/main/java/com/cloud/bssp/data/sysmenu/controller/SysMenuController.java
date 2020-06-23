@@ -1,23 +1,21 @@
 package com.cloud.bssp.data.sysmenu.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cloud.bssp.data.sysmenu.dto.SysMenuDTO;
+import com.cloud.bssp.data.sysmenu.entity.SysMenuDO;
+import com.cloud.bssp.data.sysmenu.service.SysMenuService;
 import com.cloud.bssp.data.util.PageUtil;
+import com.cloud.bssp.util.BeanCopierUtil;
 import com.cloud.bssp.util.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import com.cloud.bssp.data.sysmenu.entity.SysMenuDO;
-import com.cloud.bssp.data.sysmenu.service.SysMenuService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -40,22 +38,36 @@ public class SysMenuController {
 
     /**
      * 分页列表
+     *
      * @param params
      * @return
      */
     @ApiOperation(value = "分页列表")
     @PostMapping("/pageList")
-    public R pageList(@RequestBody Map<String,Object> params) {
-        QueryWrapper<SysMenuDO> queryWrapper =  new QueryWrapper<>();
+    public R pageList(@RequestBody Map<String, Object> params) {
+        QueryWrapper<SysMenuDO> queryWrapper = new QueryWrapper<>();
         //默认按照id倒序
         queryWrapper.orderByDesc("id");
         Page<SysMenuDO> page = PageUtil.getPageInfo(params);
-        Page<SysMenuDO> pageList = sysMenuService.page(page,queryWrapper);
-        return R.success(pageList);
+        Page<SysMenuDO> pageList = sysMenuService.page(page, queryWrapper);
+        List<SysMenuDO> records = pageList.getRecords();
+        List<SysMenuDTO> list = new ArrayList<>();
+        records.forEach(r -> {
+            SysMenuDTO sysMenuDTO = new SysMenuDTO();
+            BeanCopierUtil.copy(r, sysMenuDTO);
+            list.add(sysMenuDTO);
+        });
+        Page<SysMenuDTO> dtoList = new Page<>();
+        dtoList.setRecords(list);
+        dtoList.setTotal(pageList.getTotal());
+        dtoList.setCurrent(pageList.getCurrent());
+        dtoList.setSize(pageList.getSize());
+        return R.success(dtoList);
     }
 
     /**
      * list列表
+     *
      * @param sysMenu
      * @return
      */
@@ -69,6 +81,7 @@ public class SysMenuController {
 
     /**
      * 根据主键查询
+     *
      * @param id
      * @return
      */
@@ -81,6 +94,7 @@ public class SysMenuController {
 
     /**
      * 新增
+     *
      * @param sysMenu
      * @return
      */
@@ -96,6 +110,7 @@ public class SysMenuController {
 
     /**
      * 更新
+     *
      * @param sysMenu
      * @return
      */

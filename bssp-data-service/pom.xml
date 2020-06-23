@@ -93,7 +93,12 @@
             <artifactId>bssp-common-spring-boot-starter</artifactId>
             <version>${bssp-common-spring-boot-starter.version}</version>
         </dependency>
-
+        <!--    数据服务api接口    -->
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>bssp-data-service-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 

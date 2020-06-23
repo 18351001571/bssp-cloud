@@ -1,0 +1,62 @@
+package ${package}.api;
+
+import com.cloud.bssp.api.common.util.R;
+import ${package}.dto.${className}DTO;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
+/**
+ * <p>
+ * $!{className}Client
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@FeignClient(name = "${serviceName}", path = "/${pathName}", contextId = "base")
+public interface ${className}Client {
+
+    /**
+     * 分页列表
+     * @param params
+     * @return
+     */
+    @PostMapping("/pageList")
+    R pageList(@RequestBody Map<String, Object> params);
+
+    /**
+     * list列表
+     * @param ${classname}DTO
+     * @return
+     */
+    @PostMapping("/list")
+    R list(@RequestBody ${className}DTO ${classname}DTO);
+
+    /**
+     * 根据主键查询
+     * @param id
+     * @return
+     */
+    @GetMapping("/info/getById")
+    R info(@RequestParam("id") Long id);
+
+    /**
+     * 新增
+     * @param ${classname}DTO
+     * @return
+     */
+    @PostMapping("/save")
+    R save(@RequestBody ${className}DTO ${classname}DTO);
+
+    /**
+     * 更新
+     * @param ${classname}DTO
+     * @return
+     */
+    @PostMapping("/update")
+    R update(@RequestBody ${className}DTO ${classname}DTO);
+}

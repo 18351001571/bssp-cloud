@@ -21,10 +21,10 @@ public class GenComp {
      *
      * @return
      */
-    public byte[] generatorCode(String author, String packageName) {
-        List<String> tableNames = genMapper.queryAllTable();
-        return generatorCode(tableNames, author, packageName);
-    }
+//    public byte[] generatorCode(String author, String packageName) {
+//        List<String> tableNames = genMapper.queryAllTable();
+//        return generatorCode(tableNames, author, packageName);
+//    }
 
     /**
      * 生成指定表
@@ -32,13 +32,13 @@ public class GenComp {
      * @param tableNames
      * @return
      */
-    public byte[] generatorCode(List<String> tableNames, String author, String packageName) {
+    public byte[] generatorCode(List<String> tableNames, String author, String packageName, String serviceName) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
         for (String tableName : tableNames) {
             Map<String, Object> table = genMapper.queryTable(tableName);
             List<Map<String, Object>> columns = genMapper.queryColumns(tableName);
-            GenUtils.generatorCode(table, columns, zip, author, packageName);
+            GenUtils.generatorCode(table, columns, zip, author, packageName, serviceName);
         }
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
