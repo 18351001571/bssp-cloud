@@ -143,4 +143,16 @@ public class SysMenuController {
         }
         return R.failed();
     }
+
+    /**
+     * 获取树形菜单
+     *
+     * @return
+     */
+    @ApiOperation(value = "获取树形菜单")
+    @GetMapping("/getTree")
+    public R getTree() {
+        List<Map<String,Object>> menuList = sysMenuService.getTree();
+        return R.success(menuList);
+    }
 }

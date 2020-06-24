@@ -61,13 +61,13 @@ True是无需分配所有人就可以访问的
      */
     private String icon;
     /**
-     * 父级菜单ID
-     */
-    private Long parentId;
-    /**
      * 创建人id
      */
     private Long createUser;
+    /**
+     * 父级菜单ID
+     */
+    private Long parentId;
     /**
      * 创建时间
      */
