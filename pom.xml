@@ -32,10 +32,9 @@
     </properties>
 
     <modules>
-        <module>bssp-data-service</module>
-        <module>bssp-data-service-api</module>
+        <module>bssp-admin-service</module>
+        <module>bssp-admin-service-api</module>
         <module>bssp-auth-service</module>
-        <module>bssp-business</module>
         <module>bssp-gateway</module>
         <module>bssp-generator</module>
         <module>bssp-message</module>
