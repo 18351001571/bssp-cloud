@@ -20,7 +20,7 @@ public interface SysMenuService extends IService<SysMenuDO> {
      * @description: 获取树形结构菜单
      *
      * @param
-     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     * @return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
      * @author weirx
      * @date 2020/6/24
      */

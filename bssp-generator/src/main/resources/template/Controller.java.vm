@@ -53,7 +53,7 @@ public class ${className}Controller {
         //默认按照id倒序
         queryWrapper.orderByDesc("id");
         Page<SysMenuDO> page = new Page<>(
-                params.get("offset") == null ? 0 : Integer.valueOf(params.get("offset").toString()),
+                params.get("page") == null ? 0 : Integer.valueOf(params.get("page").toString()),
                 params.get("limit") == null ? 10 : Integer.valueOf(params.get("limit").toString()));
         Page<${className}DO> pageList = sysMenuService.page(page, queryWrapper);
         List<${className}DTO> list = new ArrayList<>();

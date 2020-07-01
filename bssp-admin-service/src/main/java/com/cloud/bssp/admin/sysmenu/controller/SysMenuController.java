@@ -54,7 +54,7 @@ public class SysMenuController {
         //默认按照id倒序
         queryWrapper.orderByDesc("id");
         Page<SysMenuDO> page = new Page<>(
-                params.get("offset") == null ? 0 : Integer.valueOf(params.get("offset").toString()),
+                params.get("page") == null ? 0 : Integer.valueOf(params.get("page").toString()),
                 params.get("limit") == null ? 10 : Integer.valueOf(params.get("limit").toString()));
         Page<SysMenuDO> pageList = sysMenuService.page(page, queryWrapper);
         List<SysMenuDTO> list = new ArrayList<>();
@@ -152,7 +152,7 @@ public class SysMenuController {
     @ApiOperation(value = "获取树形菜单")
     @GetMapping("/getTree")
     public R getTree() {
-        List<Map<String,Object>> menuList = sysMenuService.getTree();
+        List<Map<String, Object>> menuList = sysMenuService.getTree();
         return R.success(menuList);
     }
 }

@@ -47,10 +47,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> im
     }
 
     /**
+     * @description: 根据父节点获取子节点
+     *
      * @param parentId
      * @param list
      * @return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
-     * @description: 根据父节点获取子节点
      * @author weirx
      * @date 2020/6/24
      */
@@ -67,9 +68,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> im
     }
 
     /**
+     * @description: 组装数据
+     *
      * @param s
      * @return java.util.Map<java.lang.String, java.lang.Object>
-     * @description: 组装数据
      * @author weirx
      * @date 2020/6/24
      */
