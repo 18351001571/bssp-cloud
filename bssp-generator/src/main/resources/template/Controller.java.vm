@@ -2,23 +2,16 @@ package ${package}.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cloud.bssp.util.R;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import com.cloud.bssp.util.BeanCopierUtil;
-import org.springframework.util.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import ${package}.entity.${className}DO;
 import ${package}.dto.${className}DTO;
 import ${package}.service.${className}Service;
+import ${package}.convert.${className}DoConvert;
+import com.cloud.bssp.util.R;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,39 +26,26 @@ import java.util.Map;
 @Api(tags = "${comments}")
 @RestController
 @RequestMapping("/${pathName}")
+@AllArgsConstructor
 public class ${className}Controller {
 
     /**
      * ${className}Service
      */
-    @Autowired
     private ${className}Service ${classname}Service;
 
     /**
      * 分页列表
-     * @param params
+     * @param ${classname}DTO
      * @return
      */
     @ApiOperation(value = "分页列表")
     @PostMapping("/pageList")
-    public R pageList(@RequestBody Map<String,Object> params) {
-        QueryWrapper<${className}DO> queryWrapper =  new QueryWrapper<>();
-        //默认按照id倒序
-        queryWrapper.orderByDesc("id");
-        Page<SysMenuDO> page = new Page<>(
-                params.get("page") == null ? 0 : Integer.valueOf(params.get("page").toString()),
-                params.get("limit") == null ? 10 : Integer.valueOf(params.get("limit").toString()));
-        Page<${className}DO> pageList = sysMenuService.page(page, queryWrapper);
-        List<${className}DTO> list = new ArrayList<>();
-            ${className}DTO ${classname}DTO;
-        for (${className}DO ${classname}DO : pageList.getRecords()) {
-                ${classname}DTO = new ${className}DTO();
-            BeanCopierUtil.copy(${classname}DO, ${classname}DTO);
-            list.add(sysMenuDTO);
-        }
-        Page<${className}DTO> dtoList = new Page<>(pageList.getCurrent(), pageList.getSize(), pageList.getTotal());
-        dtoList.setRecords(list);
-        return R.success(dtoList);
+    public R pageList(@RequestBody ${className}DTO ${classname}DTO) {
+        QueryWrapper<${className}DO> queryWrapper = new QueryWrapper<>(SysMenuDoConvert.dtoToDo(${classname}DTO));
+        Page<${className}DO> page = new Page<>(${classname}DTO.getPage(), ${classname}DTO.getLimit());
+        Page<${className}DO> pageList = ${classname}Service.page(page, queryWrapper);
+        return R.success(${className}DoConvert.pageConvert(pageList));
     }
 
     /**
@@ -74,19 +54,10 @@ public class ${className}Controller {
      * @return
      */
     @ApiOperation(value = "list列表")
-    @PostMapping("/list")
-    public R list(@RequestBody ${className}DTO ${classname}DTO) {
-        ${className}DO ${classname}DO = new ${className}DO();
-        BeanCopierUtil.copy(${classname}DTO, ${classname}DO);
-        QueryWrapper<${className}DO> queryWrapper = new QueryWrapper<>(${classname}DO);
-        List<${className}DO> ${classname}List = ${classname}Service.list(queryWrapper);
-        List<${className}DTO> list = new ArrayList<>();
-        for (${className}DO ${classname} : ${classname}List) {
-            ${classname}DTO = new ${className}DTO();
-            BeanCopierUtil.copy(${classname}, ${classname}DTO);
-            list.add(${classname}DTO);
-        }
-        return R.success(list);
+    @PostMapping("/list")public R list(@RequestBody ${className}DTO ${classname}DTO) {
+        QueryWrapper<${className}DO> queryWrapper = new QueryWrapper<>(${className}DoConvert.dtoToDo(${classname}DTO));
+        List<${className}DO> sysMenuList = ${classname}Service.list(queryWrapper);
+        return R.success(${className}DoConvert.listConvert(${classname}List));
     }
 
     /**
@@ -97,12 +68,8 @@ public class ${className}Controller {
     @ApiOperation(value = "根据主键查询")
     @GetMapping("/info/getBy${pk.attrName}")
     public R info(@RequestParam("${pk.attrname}") Long ${pk.attrname}) {
-        ${className}DO ${classname} = ${classname}Service.getById(id);
-        ${className}DTO ${classname}DTO = new ${className}DTO();
-        if (!ObjectUtils.isEmpty(${classname})) {
-            BeanCopierUtil.copy(${classname}, ${classname}DTO);
-        }
-        return R.success(${classname}DTO);
+            ${className}DO ${classname} = ${classname}Service.getById(id);
+        return R.success(${className}DoConvert.doToDto(${classname}));
     }
 
     /**
@@ -113,9 +80,7 @@ public class ${className}Controller {
     @ApiOperation(value = "新增")
     @PostMapping("/save")
     public R save(@RequestBody ${className}DTO ${classname}DTO) {
-        ${className}DO ${classname}DO = new ${className}DO();
-        BeanCopierUtil.copy(${classname}DTO, ${classname}DO);
-        boolean flag = ${classname}Service.save(${classname}DO);
+        boolean flag = ${classname}Service.save(${className}DoConvert.dtoToDo(${classname}DTO));
         if (flag) {
             return R.success();
         }
@@ -130,9 +95,7 @@ public class ${className}Controller {
     @ApiOperation(value = "更新")
     @PostMapping("/update")
     public R update(@RequestBody ${className}DTO ${classname}DTO) {
-        ${className}DO ${classname}DO = new ${className}DO();
-        BeanCopierUtil.copy(${classname}DTO, ${classname}DO);
-        boolean flag = ${classname}Service.updateById(${classname}DO);
+        boolean flag =  ${classname}Service.updateById(${className}DoConvert.dtoToDo(${classname}DTO));
         if (flag) {
             return R.success();
         }

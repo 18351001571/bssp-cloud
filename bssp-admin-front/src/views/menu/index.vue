@@ -1,7 +1,11 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.title" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"/>
+      <el-input v-model="listQuery.label" placeholder="菜单名称" style="width: 200px;" class="filter-item"
+                @keyup.enter.native="handleFilter"/>
+      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+        搜索
+      </el-button>
     </div>
     <el-table
       v-loading="listLoading"
@@ -71,7 +75,7 @@
           page: 1,
           limit: 10,
           importance: undefined,
-          title: undefined,
+          label: undefined,
           type: undefined,
           sort: '+id'
         }
@@ -93,7 +97,11 @@
           },
           error => {
           })
-      }
+      },
+      handleFilter() {
+        this.listQuery.page = 1
+        this.getList()
+      },
     }
   }
 </script>

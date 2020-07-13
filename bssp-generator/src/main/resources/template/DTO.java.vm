@@ -1,5 +1,6 @@
 package ${package}.dto;
 
+import com.cloud.bssp.util.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
     #foreach ($column in $columns)
@@ -26,7 +27,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value = "${className}DTO",description = "数据传输对象${className}DTO")
-public class ${className}DTO  {
+public class ${className}DTO extends BaseDTO{
 
 #foreach ($column in $columns)
     /**

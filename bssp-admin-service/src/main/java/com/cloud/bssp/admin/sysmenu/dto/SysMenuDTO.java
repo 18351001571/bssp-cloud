@@ -1,5 +1,6 @@
 package com.cloud.bssp.admin.sysmenu.dto;
 
+import com.cloud.bssp.util.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -10,12 +11,12 @@ import lombok.Data;
  * @author weirx
  * @since JDK 1.8
  * @version 1.0
- * @date 2020-06-24
+ * @date 2020-07-13
  * @Descriptions: 菜单
  */
 @Data
 @ApiModel(value = "SysMenuDTO",description = "数据传输对象SysMenuDTO")
-public class SysMenuDTO  {
+public class SysMenuDTO extends BaseDTO{
 
     /**
      * 主键

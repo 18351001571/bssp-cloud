@@ -24,7 +24,7 @@ public class MybatisDemoApplicationTests {
         List<String> list = new ArrayList<>();
         list.add("bssp_sys_menu");
         byte[] zipByte = genComp.generatorCode(list, "weirx",
-                "com.cloud.bssp.data.sysmenu", "bssp-data-service");
+                "com.cloud.bssp.admin.sysmenu", "bssp-data-service");
         try {
             //生成路径
             FileUtils.writeByteArrayToFile(new File("D:\\1.zip"), zipByte);

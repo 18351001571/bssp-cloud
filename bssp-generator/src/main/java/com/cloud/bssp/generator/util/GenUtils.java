@@ -48,6 +48,7 @@ public class GenUtils {
         templates.add("template/Controller.java.vm");
         templates.add("template/DTO.java.vm");
         templates.add("template/Client.java.vm");
+        templates.add("template/Convert.java.vm");
         return templates;
     }
 
@@ -184,6 +185,9 @@ public class GenUtils {
         }
         if (template.contains("Client.java.vm")) {
             return packagePath + "api" + File.separator + className + "Client.java";
+        }
+        if (template.contains("Convert.java.vm")) {
+            return packagePath + "convert" + File.separator + className + "DoConvert.java";
         }
         return null;
     }
