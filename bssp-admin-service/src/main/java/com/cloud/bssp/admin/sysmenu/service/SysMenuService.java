@@ -1,7 +1,7 @@
 package com.cloud.bssp.admin.sysmenu.service;
 
-import com.cloud.bssp.admin.config.IDataService;
 import com.cloud.bssp.admin.sysmenu.entity.SysMenuDO;
+import com.cloud.bssp.config.mybatisplus.IDataService;
 
 import java.util.List;
 import java.util.Map;
