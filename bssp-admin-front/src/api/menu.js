@@ -1,11 +1,8 @@
 import request from '@/utils/request'
-import axios from 'axios'
-import qs from 'qs' // qs这个包在install  axios 时就已经装了，因为 qs 是 axios 的依赖包
 
 /**
  * @description: 菜单tree
  *
- * @param null
  * @return
  * @author weirx
  * @date 2020/6/30
@@ -21,7 +18,6 @@ export function getMenuTree(token) {
 /**
  * @description: 菜单分页列表
  *
- * @param null
  * @return
  * @author weirx
  * @date 2020/6/30
@@ -29,6 +25,36 @@ export function getMenuTree(token) {
 export function getPageMenu(data) {
   return request({
     url: '/sysmenu/pageList',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * Description: 新增
+ *
+ * Created date: 2020/7/14
+ * @return
+ * @author weirx
+ */
+export function create(data) {
+  return request({
+    url: '/sysmenu/save',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * Description: 更新
+ *
+ * Created date: 2020/7/14
+ * @return
+ * @author weirx
+ */
+export function update(data) {
+  return request({
+    url: '/sysmenu/update',
     method: 'post',
     data
   })

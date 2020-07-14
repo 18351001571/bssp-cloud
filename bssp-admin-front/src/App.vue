@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<style>
+  body .el-table th.gutter{
+    display: table-cell!important;
+  }
+
+  body .el-table colgroup.gutter{
+    display: table-cell!important;
+  }
+</style>
 <script>
 export default {
   name: 'App'

@@ -1,6 +1,7 @@
 package ${package}.dto;
 
 import com.cloud.bssp.util.BaseDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
     #foreach ($column in $columns)
@@ -34,6 +35,15 @@ public class ${className}DTO extends BaseDTO{
      * $column.comments
      */
     @ApiModelProperty(notes  = "$column.comments")
+    #if($column.attrname == 'id' || $column.attrname.indexOf('Id') != -1)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    #end
+    #if ("date" == $column.dataType)
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    #end
+    #if ("datetime" == $column.dataType)
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    #end
     private $column.attrType $column.attrname;
 #end
 }

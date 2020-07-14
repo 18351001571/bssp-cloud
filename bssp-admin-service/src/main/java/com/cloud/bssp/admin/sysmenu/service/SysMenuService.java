@@ -1,7 +1,7 @@
 package com.cloud.bssp.admin.sysmenu.service;
 
+import com.cloud.bssp.admin.config.IDataService;
 import com.cloud.bssp.admin.sysmenu.entity.SysMenuDO;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 import java.util.Map;
@@ -15,9 +15,9 @@ import java.util.Map;
  * @date 2020-06-22
  * @Descriptions:
  */
-public interface SysMenuService extends IService<SysMenuDO> {
+public interface SysMenuService extends IDataService<SysMenuDO> {
     /**
-     * @description: 获取树形结构菜单
+     * description: 获取树形结构菜单
      *
      * @param
      * @return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>

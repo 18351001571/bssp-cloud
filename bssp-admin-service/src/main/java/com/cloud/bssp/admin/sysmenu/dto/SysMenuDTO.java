@@ -1,6 +1,7 @@
 package com.cloud.bssp.admin.sysmenu.dto;
 
 import com.cloud.bssp.util.BaseDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import lombok.Data;
  * @author weirx
  * @since JDK 1.8
  * @version 1.0
- * @date 2020-07-13
+ * @date 2020-07-14
  * @Descriptions: 菜单
  */
 @Data
@@ -22,6 +23,7 @@ public class SysMenuDTO extends BaseDTO{
      * 主键
      */
     @ApiModelProperty(notes  = "主键")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     /**
      * 名称
@@ -37,7 +39,7 @@ public class SysMenuDTO extends BaseDTO{
      * 公共菜单True是无需分配所有人就可以访问的
      */
     @ApiModelProperty(notes  = "公共菜单True是无需分配所有人就可以访问的")
-    private Boolean isPublic;
+    private Integer isPublic;
     /**
      * 路径
      */
@@ -52,7 +54,7 @@ public class SysMenuDTO extends BaseDTO{
      * 状态
      */
     @ApiModelProperty(notes  = "状态")
-    private Boolean isEnable;
+    private Integer isEnable;
     /**
      * 排序
      */
@@ -67,7 +69,13 @@ public class SysMenuDTO extends BaseDTO{
      * 父级菜单ID
      */
     @ApiModelProperty(notes  = "父级菜单ID")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long parentId;
+    /**
+     * 删除标记，1是0否
+     */
+    @ApiModelProperty(notes  = "删除标记，1是0否")
+    private Integer isDelete;
     /**
      * 创建人id
      */
@@ -77,6 +85,7 @@ public class SysMenuDTO extends BaseDTO{
      * 创建时间
      */
     @ApiModelProperty(notes  = "创建时间")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
     /**
      * 更新人id
@@ -87,5 +96,6 @@ public class SysMenuDTO extends BaseDTO{
      * 更新时间
      */
     @ApiModelProperty(notes  = "更新时间")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

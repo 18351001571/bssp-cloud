@@ -5,7 +5,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.bssp.admin.sysmenu.entity.SysMenuDO;
 import com.cloud.bssp.admin.sysmenu.mapper.SysMenuMapper;
 import com.cloud.bssp.admin.sysmenu.service.SysMenuService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cloud.bssp.constants.SystemConstant;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -20,15 +21,19 @@ import java.util.*;
  * @since JDK 1.8
  */
 @Service
+@AllArgsConstructor
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> implements SysMenuService {
 
-    @Autowired
+    /**
+     * 菜单mapper
+     */
     private SysMenuMapper sysMenuMapper;
 
     @Override
     public List<Map<String, Object>> getTree() {
         SysMenuDO sysMenuDO = new SysMenuDO();
-        sysMenuDO.setIsEnable(true);
+        sysMenuDO.setIsEnable(SystemConstant.ONE);
+        sysMenuDO.setIsDelete(SystemConstant.ZERO);
         QueryWrapper<SysMenuDO> queryWrapper = new QueryWrapper<>(sysMenuDO);
         queryWrapper.orderByAsc("id");
         List<SysMenuDO> sysMenuDOS = sysMenuMapper.selectList(queryWrapper);

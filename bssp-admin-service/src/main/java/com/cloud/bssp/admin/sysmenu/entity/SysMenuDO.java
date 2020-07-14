@@ -14,7 +14,7 @@ import lombok.Data;
  * @author weirx
  * @since JDK 1.8
  * @version 1.0
- * @date 2020-06-22
+ * @date 2020-07-14
  * @Descriptions: 菜单
  */
 @Data
@@ -36,10 +36,9 @@ public class SysMenuDO  {
     @TableField("`desc`")
     private String desc;
     /**
-     * 公共菜单
-True是无需分配所有人就可以访问的
+     * 公共菜单True是无需分配所有人就可以访问的
      */
-    private Boolean isPublic;
+    private Integer isPublic;
     /**
      * 路径
      */
@@ -51,7 +50,7 @@ True是无需分配所有人就可以访问的
     /**
      * 状态
      */
-    private Boolean isEnable;
+    private Integer isEnable;
     /**
      * 排序
      */
@@ -61,13 +60,17 @@ True是无需分配所有人就可以访问的
      */
     private String icon;
     /**
-     * 创建人id
-     */
-    private Long createUser;
-    /**
      * 父级菜单ID
      */
     private Long parentId;
+    /**
+     * 删除标记，1是0否
+     */
+    private Integer isDelete;
+    /**
+     * 创建人id
+     */
+    private Long createUser;
     /**
      * 创建时间
      */

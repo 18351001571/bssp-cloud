@@ -51,6 +51,9 @@ public class ${className}DO  {
     #if ("datetime" == $column.dataType)
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     #end
+    #if ("desc" == $column.attrname)
+    @TableField("`desc`")
+    #end
     private $column.attrType $column.attrname;
 #end
 }
