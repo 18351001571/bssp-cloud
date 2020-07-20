@@ -17,14 +17,16 @@ import java.time.LocalDateTime;
         #end
     #end
 import lombok.Data;
+
 /**
- * Module: ${className}DTO.java
+ * Description: ${comments}
+ * Create Date: ${date}
+ * Modified By：<br>
+ * Modified Date：<br>
+ * Why & What is modified：<br>
  *
  * @author ${author}
- * @since JDK ${jdk}
  * @version ${version}
- * @date ${date}
- * @Descriptions: ${comments}
  */
 @Data
 @ApiModel(value = "${className}DTO",description = "数据传输对象${className}DTO")

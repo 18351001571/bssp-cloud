@@ -8,24 +8,26 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
- * Module: ${className}DoConvert.java
+ * Description: ${comments}
+ * Create Date: ${date}
+ * Modified By：<br>
+ * Modified Date：<br>
+ * Why & What is modified：<br>
  *
  * @author ${author}
- * @since JDK ${jdk}
  * @version ${version}
- * @date ${date}
- * @Descriptions: ${comments}
  */
 @Component
 public class ${className}DoConvert  {
 
     /**
-         * DtoToDo
-         *
-         * @param ${classname}DTO
-         * @return
-         */
+     * DtoToDo
+     *
+     * @param ${classname}DTO
+     * @return
+     */
     public static ${className}DO dtoToDo(${className}DTO ${classname}DTO) {
         ${className}DO ${classname}DO = new ${className}DO();
         BeanCopierUtil.copy(${classname}DTO, ${classname}DO);

@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
+
 /**
- * <p>
- * $!{className}Client
- * </p>
+ * Description: ${comments}
+ * Create Date: ${date}
+ * Modified By：<br>
+ * Modified Date：<br>
+ * Why & What is modified：<br>
  *
  * @author ${author}
- * @since ${date}
+ * @version ${version}
  */
 @FeignClient(name = "${serviceName}", path = "/${pathName}", contextId = "base")
 public interface ${className}Client {

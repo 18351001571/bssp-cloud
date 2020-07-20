@@ -27,7 +27,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',
+  lintOnSave: process.env.NODE_ENV === 'production',
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -38,12 +38,21 @@ module.exports = {
     },
     proxy: {
       //配置跨域
-      [process.env.VUE_APP_BASE_API]: {
+      // [process.env.VUE_APP_BASE_API]: {
+      '/admin-api': {
         target: "http://localhost:8080/",
         ws:true,
         changOrigin:true,
         pathRewrite:{
-          '^/dev-api':'/'
+          '^/admin-api':'/'
+        }
+      },
+      '/generate-api': {
+        target: "http://localhost:9999/",
+        ws:true,
+        changOrigin:true,
+        pathRewrite:{
+          '^/generate-api':'/'
         }
       }
     },

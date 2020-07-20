@@ -56,6 +56,7 @@ module.exports = {
     'indent': [2, 2, {
       'SwitchCase': 1
     }],
+    "indent": ["off", 2],
     'jsx-quotes': [2, 'prefer-single'],
     'key-spacing': [2, {
       'beforeColon': false,

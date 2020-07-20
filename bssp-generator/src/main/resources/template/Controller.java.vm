@@ -13,15 +13,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * <p>
- * $!{className} Controller控制器
- * </p>
+ * Description: ${comments}
+ * Create Date: ${date}
+ * Modified By：<br>
+ * Modified Date：<br>
+ * Why & What is modified：<br>
  *
  * @author ${author}
- * @since ${date}
+ * @version ${version}
  */
 @Api(tags = "${comments}")
 @RestController
@@ -42,7 +43,7 @@ public class ${className}Controller {
     @ApiOperation(value = "分页列表")
     @PostMapping("/pageList")
     public R pageList(@RequestBody ${className}DTO ${classname}DTO) {
-        QueryWrapper<${className}DO> queryWrapper = new QueryWrapper<>(SysMenuDoConvert.dtoToDo(${classname}DTO));
+        QueryWrapper<${className}DO> queryWrapper = new QueryWrapper<>(${className}DoConvert.dtoToDo(${classname}DTO));
         Page<${className}DO> page = new Page<>(${classname}DTO.getPage(), ${classname}DTO.getLimit());
         Page<${className}DO> pageList = ${classname}Service.page(page, queryWrapper);
         return R.success(${className}DoConvert.pageConvert(pageList));
@@ -56,7 +57,7 @@ public class ${className}Controller {
     @ApiOperation(value = "list列表")
     @PostMapping("/list")public R list(@RequestBody ${className}DTO ${classname}DTO) {
         QueryWrapper<${className}DO> queryWrapper = new QueryWrapper<>(${className}DoConvert.dtoToDo(${classname}DTO));
-        List<${className}DO> sysMenuList = ${classname}Service.list(queryWrapper);
+        List<${className}DO> ${classname}List = ${classname}Service.list(queryWrapper);
         return R.success(${className}DoConvert.listConvert(${classname}List));
     }
 

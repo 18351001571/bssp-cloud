@@ -4,16 +4,17 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import ${package}.entity.${className}DO;
 import ${package}.service.${className}Service;
-import ${package}.mapper.${className}Mapper;
+import ${package}.dao.${className}Mapper;
 
 /**
- * Module: ${className}ServiceImpl.java
+ * Description: ${comments}
+ * Create Date: ${date}
+ * Modified By：<br>
+ * Modified Date：<br>
+ * Why & What is modified：<br>
  *
  * @author ${author}
- * @since JDK ${jdk}
  * @version ${version}
- * @date ${date}
- * @Descriptions:
  */
 @Service
 public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}DO> implements ${className}Service {

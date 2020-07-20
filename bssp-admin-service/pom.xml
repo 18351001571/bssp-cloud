@@ -45,34 +45,13 @@
             <version>4.13</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>${nacos.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>${nacos.version}</version>
-        </dependency>
-
         <!--   公共组件     -->
         <dependency>
             <groupId>com.cloud</groupId>
             <artifactId>bssp-common-spring-boot-starter</artifactId>
             <version>${bssp-common-spring-boot-starter.version}</version>
         </dependency>
-        <!--    数据服务api接口    -->
-        <dependency>
-            <groupId>com.cloud</groupId>
-            <artifactId>bssp-data-service-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
-
 
     <build>
         <plugins>

@@ -1,0 +1,248 @@
+<template>
+  <div class="app-container">
+    <div class="filter-container">
+      <el-input v-model="listQuery.label" placeholder="表名称" style="width: 200px;" class="filter-item"
+                @keyup.enter.native="handleFilter"/>
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+        搜索
+      </el-button>
+
+      <el-button class="filter-item" type="primary" icon="el-icon-s-tools" @click="generateRules">
+        生成规则设置
+      </el-button>
+    </div>
+    <el-table
+      v-loading="listLoading"
+      :data="list"
+      element-loading-text="Loading"
+      border
+      fit
+      highlight-current-row
+      style="width: 100%;"
+      @selection-change="handleSelectionChange">
+      <el-table-column
+        type="selection"
+        width="40"
+        align="center">
+      </el-table-column>
+      <el-table-column label="表名称">
+        <template slot-scope="scope">
+          {{ scope.row.tableName }}
+        </template>
+      </el-table-column>
+      <el-table-column label="存储引擎" align="left">
+        <template slot-scope="scope">
+          <span>{{ scope.row.engine }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="描述" align="left">
+        <template slot-scope="scope">
+          {{ scope.row.tableComment }}
+        </template>
+      </el-table-column>
+      <el-table-column label="创建时间" align="left">
+        <template slot-scope="scope">
+          {{ scope.row.createTime }}
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <template slot-scope="{row,$index}">
+          <el-button type="primary" size="mini" @click="preview(row)">
+            预览
+          </el-button>
+          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleGenerate(row,$index)">
+            生成
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit"
+                @pagination="getList"/>
+
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="80px"
+               style="width: 500px; margin-left:100px;">
+        <el-form-item label="作者" prop="author">
+          <el-input v-model="temp.author" type="text"/>
+        </el-form-item>
+        <el-form-item label="包名" prop="packageName">
+          <el-input v-model="temp.packageName" type="text"/>
+        </el-form-item>
+        <el-form-item label="服务名" prop="serviceName">
+          <el-input v-model="temp.serviceName" type="text"/>
+        </el-form-item>
+        <el-form-item label="忽略前缀" prop="isIgnorePrefix">
+          <el-radio :label="1" v-model="radio">是</el-radio>
+          <el-radio :label="0" v-model="radio">否</el-radio>
+        </el-form-item>
+        <el-form-item label="前缀" prop="tablePrefix">
+          <el-input v-model="temp.tablePrefix" type="text"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">
+          取消
+        </el-button>
+        <el-button type="primary" @click="generate()">
+          确认
+        </el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+  import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+  import {getPageList, generateCode, previewCode} from "@/api/generate";
+
+  export default {
+    components: {Pagination},
+    data() {
+      return {
+        radio: 1,
+        list: null,
+        listLoading: true,
+        downloadLoading: false,
+        total: 0,
+        listQuery: {
+          page: 1,
+          limit: 10,
+          tableName: ''
+        },
+        dialogStatus: '',
+        textMap: {
+          generateCode: '代码生成规则设置',
+          preview: '预览',
+          generateRules: '生成规则'
+        },
+        temp: {
+          tableNames: '',
+          author: '',
+          packageName: '',
+          serviceName: '',
+          tablePrefix: '',
+          isIgnorePrefix: 1
+        },
+        dialogFormVisible: false,
+        tableNames: undefined,
+        rules: {
+          author: [{required: true, message: '请输入作者', trigger: 'change'}],
+          packageName: [{required: true, message: '请输入包名', trigger: 'change'}],
+          serviceName: [{required: true, message: '请输入服务名', trigger: 'change'}],
+          isIgnorePrefix: [{required: true, message: '请选择是否忽略前缀', trigger: 'change'}],
+        },
+        activeTab: 'basic',
+        tableTabs: undefined
+      }
+    },
+    created() {
+      this.getList()
+    },
+    methods: {
+      getList() {
+        this.listLoading = true
+        getPageList(this.listQuery).then(response => {
+            this.total = response.data.total
+            this.list = response.data.records
+            // Just to simulate the time of the request
+            setTimeout(() => {
+              this.listLoading = false
+            }, 1.5 * 1000)
+          },
+          error => {
+          })
+      },
+      handleFilter() {
+        this.listQuery.page = 1
+        this.getList()
+      },
+      handleBatchGenerate() {
+        if (!this.tableNames) {
+          this.$notify({
+            title: '失败',
+            message: '请至少选择一条记录',
+            type: 'error',
+            duration: 2000
+          });
+          return;
+        }
+        //this.temp = Object.assign({}, row) // copy obj
+        let names = new Array();
+        let tables = this.tableNames;
+        for (let i = 0; i < tables.length; i++) {
+          names[i] = tables[i].tableName;
+        }
+        this.temp.tableNames = names;
+        this.dialogStatus = 'generateCode'
+        this.dialogFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['dataForm'].clearValidate()
+        })
+      },
+      handleGenerate(row) {
+        let names = new Array(1);
+        names[0] = row.tableName;
+        this.temp.tableNames[0] = names;
+        this.dialogStatus = 'generateCode'
+        this.dialogFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['dataForm'].clearValidate()
+        })
+      },
+      handleSelectionChange(val) {
+        this.tableNames = val;
+      },
+      handleClick() {
+        if (!this.temp.packageName || !this.temp.author) {
+          this.$refs['dataForm'].validate();
+          return false;
+        }
+      },
+      generate() {
+        this.$refs['dataForm'].validate((valid) => {
+          if (valid) {
+            generateCode(this.temp).then((res) => {
+              let blob = new Blob([res], {
+                type: 'application/zip'
+              })
+              let fileName = Date.parse(new Date()) + '.zip'
+              if (window.navigator.msSaveOrOpenBlob) {
+                navigator.msSaveBlob(blob, fileName)
+              } else {
+                let link = document.createElement('a')
+                link.href = window.URL.createObjectURL(blob)
+                link.download = fileName
+                link.click()
+                this.dialogFormVisible = false
+                //释放内存
+                window.URL.revokeObjectURL(link.href)
+              }
+            })
+          }
+        })
+      },
+      previewCode(tab, event) {
+        debugger
+        this.$refs['dataForm'].validate((valid) => {
+          if (valid) {
+            if (tab.name = 'preview') {
+              previewCode(this.temp).then((res) => {
+                this.tableTabs = res.data;
+              })
+            }
+          }
+        })
+      },
+      /**
+       * 生成规则设置页面
+       */
+      generateRules() {
+        this.dialogStatus = 'generateRules'
+        this.dialogFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['dataForm'].clearValidate()
+        })
+      },
+    }
+  }
+</script>

@@ -4,13 +4,14 @@ import ${package}.entity.${className}DO;
 import com.cloud.bssp.config.mybatisplus.IDataService;
 
 /**
- * Module: ${className}Service.java
+ * Description: ${comments}
+ * Create Date: ${date}
+ * Modified By：<br>
+ * Modified Date：<br>
+ * Why & What is modified：<br>
  *
  * @author ${author}
- * @since JDK ${jdk}
  * @version ${version}
- * @date ${date}
- * @Descriptions:
  */
 public interface ${className}Service extends IDataService<${className}DO> {
 }

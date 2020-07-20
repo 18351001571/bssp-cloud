@@ -3,6 +3,12 @@ package com.cloud.bssp.generator.util;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 公共map
+ *
+ * @author weirx
+ * @date 2020-07-17
+ */
 public class CommonMap {
     /**
      * 状态编码转换
@@ -26,7 +32,6 @@ public class CommonMap {
         javaTypeMap.put("float", "Float");
         javaTypeMap.put("double", "Double");
         javaTypeMap.put("decimal", "Double");
-        // javaTypeMap.put("decimal", "BigDecimal");
         javaTypeMap.put("bit", "Boolean");
         javaTypeMap.put("char", "String");
         javaTypeMap.put("varchar", "String");
@@ -38,10 +43,6 @@ public class CommonMap {
         javaTypeMap.put("date", "LocalDate");
         javaTypeMap.put("datetime", "LocalDateTime");
         javaTypeMap.put("timestamp", "LocalDateTime");
-
-        javaTypeMap.put("tablePrefix", "bssp_");// 前缀
-        javaTypeMap.put("package", "com.cloud.bssp.");//包名
-        javaTypeMap.put("author", "weirx");//作者
         javaTypeMap.put("jdk", "1.8");
         javaTypeMap.put("version", "1.0");
     }

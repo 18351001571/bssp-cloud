@@ -19,14 +19,16 @@ import com.alibaba.fastjson.annotation.JSONField;
         #end
     #end
 import lombok.Data;
+
 /**
- * Module: ${className}DO.java
+ * Description: ${comments}
+ * Create Date: ${date}
+ * Modified By：<br>
+ * Modified Date：<br>
+ * Why & What is modified：<br>
  *
  * @author ${author}
- * @since JDK ${jdk}
  * @version ${version}
- * @date ${date}
- * @Descriptions: ${comments}
  */
 @Data
 @TableName(value = "${tableName}")
