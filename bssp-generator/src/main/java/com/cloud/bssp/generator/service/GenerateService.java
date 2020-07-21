@@ -68,9 +68,9 @@ public interface GenerateService {
     /**
      * Description: 代码预览
      * Created date: 2020/7/16
-     * @param tableDO
+     * @param tableName
      * @return com.cloud.bssp.generator.entity.PreviewCodeDO
      * @author weirx
      */
-    Map<String,Map<String,Object>> previewCode(TableDO tableDO);
+    List<Map<String, String>> previewCode(String tableName);
 }

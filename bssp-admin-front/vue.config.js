@@ -37,22 +37,12 @@ module.exports = {
       errors: true
     },
     proxy: {
-      //配置跨域
-      // [process.env.VUE_APP_BASE_API]: {
-      '/admin-api': {
-        target: "http://localhost:8080/",
+      [process.env.VUE_APP_BASE_API]: {
+        target: "http://localhost:8888/",
         ws:true,
         changOrigin:true,
         pathRewrite:{
-          '^/admin-api':'/'
-        }
-      },
-      '/generate-api': {
-        target: "http://localhost:9999/",
-        ws:true,
-        changOrigin:true,
-        pathRewrite:{
-          '^/generate-api':'/'
+          '^/dev-api':'/'
         }
       }
     },

@@ -1,9 +1,12 @@
 package com.cloud.bssp.generator.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cloud.bssp.constants.SystemConstant;
 import com.cloud.bssp.generator.dao.GenerateMapper;
+import com.cloud.bssp.generator.entity.GenerateRulesDO;
 import com.cloud.bssp.generator.entity.TableColumnDO;
 import com.cloud.bssp.generator.entity.TableDO;
+import com.cloud.bssp.generator.service.GenerateRulesService;
 import com.cloud.bssp.generator.service.GenerateService;
 import com.cloud.bssp.generator.util.ColumnEntity;
 import com.cloud.bssp.generator.util.CommonMap;
@@ -16,6 +19,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -44,6 +49,11 @@ public class GenerateServiceImpl implements GenerateService {
      * generateMapper
      */
     private GenerateMapper generateMapper;
+
+    /**
+     * 生成规则service
+     */
+    private GenerateRulesService generateRulesService;
 
     @Override
     public TableDO queryTable(String tableName) {
@@ -87,15 +97,16 @@ public class GenerateServiceImpl implements GenerateService {
 
     @Override
     public ByteArrayOutputStream generateCode(TableDO tableDO) {
+        List<GenerateRulesDO> list = generateRulesService.list();
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
         for (String tableName : tableDO.getTableNames()) {
             TableDO table = generateMapper.queryTable(tableName);
-            table.setAuthor(tableDO.getAuthor());
-            table.setPackageName(tableDO.getPackageName());
-            table.setServiceName(tableDO.getServiceName());
             List<TableColumnDO> columns = generateMapper.queryColumns(tableName);
-            this.generatorCode(table, columns, zip);
+            this.generatorCode(table, list.get(0), columns, zip);
         }
         IOUtils.closeQuietly(zip);
         return outputStream;
@@ -103,28 +114,30 @@ public class GenerateServiceImpl implements GenerateService {
     }
 
     @Override
-    public Map<String, Map<String, Object>> previewCode(TableDO tableDO) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ZipOutputStream zip = new ZipOutputStream(outputStream);
-        Map<String, Map<String, Object>> map = new HashMap<>();
-        for (String tableName : tableDO.getTableNames()) {
-            TableDO table = generateMapper.queryTable(tableName);
-            table.setAuthor(tableDO.getAuthor());
-            table.setPackageName(tableDO.getPackageName());
-            table.setServiceName(tableDO.getServiceName());
-            List<TableColumnDO> columns = generateMapper.queryColumns(tableName);
-            map.put(tableName, this.generatorCode(table, columns, zip));
+    public List<Map<String, String>> previewCode(String tableName) {
+        List<GenerateRulesDO> list = generateRulesService.list();
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
         }
-        return map;
+        TableDO table = generateMapper.queryTable(tableName);
+        List<TableColumnDO> columns = generateMapper.queryColumns(tableName);
+        List<Map<String, String>> listMap = this.previewList(table, list.get(0), columns);
+        return listMap;
     }
 
-    private Map<String, Object> generatorCode(TableDO table, List<TableColumnDO> columns, ZipOutputStream zip) {
+    private List<Map<String, String>> previewList(
+            TableDO table, GenerateRulesDO generateRule, List<TableColumnDO> columns) {
         // 表信息
         TableEntity tableEntity = new TableEntity();
         tableEntity.setTableName(table.getTableName());
         tableEntity.setComments(table.getTableComment());
         // 表名转换成Java类名,去除表前缀
-        String className = tableToJava(tableEntity.getTableName(), CommonMap.javaTypeMap.get("tablePrefix"));
+        String className;
+        if (SystemConstant.ONE == generateRule.getIsIgnorePrefix()) {
+            className = tableToJava(tableEntity.getTableName(), generateRule.getTablePrefix());
+        } else {
+            className = tableToJava(tableEntity.getTableName(), null);
+        }
         tableEntity.setClassName(className);
         tableEntity.setClassname(StringUtils.uncapitalize(className));
         // 列信息
@@ -173,12 +186,98 @@ public class GenerateServiceImpl implements GenerateService {
         map.put("classname", tableEntity.getClassname());
         map.put("pathName", tableEntity.getClassname().toLowerCase());
         map.put("columns", tableEntity.getColumns());
-        map.put("package", table.getPackageName());
-        map.put("author", table.getAuthor());
+        map.put("package", generateRule.getPackageName());
+        map.put("author", generateRule.getAuthor());
         map.put("date", LocalDateTime.now());
         map.put("jdk", CommonMap.javaTypeMap.get("jdk"));
         map.put("version", CommonMap.javaTypeMap.get("version"));
-        map.put("serviceName", table.getServiceName());
+        map.put("serviceName", generateRule.getServiceName());
+        VelocityContext context = new VelocityContext(map);
+
+        // 获取模板列表
+        List<String> templates = getTemplates();
+        List<Map<String, String>> list = new ArrayList<>();
+        Map<String, String> dataMap;
+        for (String template : templates) {
+            dataMap = new LinkedHashMap<>();
+            // 渲染模板
+            StringWriter sw = new StringWriter();
+            Template tpl = Velocity.getTemplate(template, "UTF-8");
+            tpl.merge(context, sw);
+            dataMap.put("key",StringUtils.substringBetween(template,"template/",".vm"));
+            dataMap.put("value",sw.toString());
+            list.add(dataMap);
+        }
+        return list;
+    }
+
+    private Map<String, Object> generatorCode(TableDO table, GenerateRulesDO generateRule,
+                                              List<TableColumnDO> columns, ZipOutputStream zip) {
+        // 表信息
+        TableEntity tableEntity = new TableEntity();
+        tableEntity.setTableName(table.getTableName());
+        tableEntity.setComments(table.getTableComment());
+        // 表名转换成Java类名,去除表前缀
+        String className;
+        if (SystemConstant.ONE == generateRule.getIsIgnorePrefix()) {
+            className = tableToJava(tableEntity.getTableName(), generateRule.getTablePrefix());
+        } else {
+            className = tableToJava(tableEntity.getTableName(), null);
+        }
+        tableEntity.setClassName(className);
+        tableEntity.setClassname(StringUtils.uncapitalize(className));
+        // 列信息
+        List<ColumnEntity> columnList = new ArrayList<>();
+        for (TableColumnDO tableColumnDO : columns) {
+            ColumnEntity columnEntity = new ColumnEntity();
+            columnEntity.setColumnName(tableColumnDO.getColumnName());
+            columnEntity.setDataType(tableColumnDO.getDataType());
+            columnEntity.setComments(tableColumnDO.getColumnComment());
+            columnEntity.setExtra(tableColumnDO.getExtra());
+
+            // 列名转换成Java属性名
+            String attrName = columnToJava(columnEntity.getColumnName());
+            columnEntity.setAttrName(attrName);
+            columnEntity.setAttrname(StringUtils.uncapitalize(attrName));
+
+            // 列的数据类型，转换成Java类型
+            String attrType = CommonMap.javaTypeMap.get(columnEntity.getDataType());
+            attrType = StringUtils.isBlank(attrType) ? "unknownType" : attrType;
+            columnEntity.setAttrType(attrType);
+
+            // 是否主键
+            if ("PRI".equalsIgnoreCase(tableColumnDO.getColumnKey()) && tableEntity.getPk() == null) {
+                tableEntity.setPk(columnEntity);
+            }
+            columnList.add(columnEntity);
+        }
+        tableEntity.setColumns(columnList);
+
+        // 没主键，则第一个字段为主键
+        if (tableEntity.getPk() == null) {
+            tableEntity.setPk(tableEntity.getColumns().get(0));
+        }
+
+        // 设置velocity资源加载器
+        Properties prop = new Properties();
+        prop.put("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        Velocity.init(prop);
+
+        // 封装模板数据
+        Map<String, Object> map = new HashMap<>();
+        map.put("tableName", tableEntity.getTableName());
+        map.put("comments", tableEntity.getComments());
+        map.put("pk", tableEntity.getPk());
+        map.put("className", tableEntity.getClassName());
+        map.put("classname", tableEntity.getClassname());
+        map.put("pathName", tableEntity.getClassname().toLowerCase());
+        map.put("columns", tableEntity.getColumns());
+        map.put("package", generateRule.getPackageName());
+        map.put("author", generateRule.getAuthor());
+        map.put("date", LocalDateTime.now());
+        map.put("jdk", CommonMap.javaTypeMap.get("jdk"));
+        map.put("version", CommonMap.javaTypeMap.get("version"));
+        map.put("serviceName", generateRule.getServiceName());
         VelocityContext context = new VelocityContext(map);
 
         // 获取模板列表
@@ -192,7 +291,7 @@ public class GenerateServiceImpl implements GenerateService {
             dataMap.put(template, sw);
             try {
                 // 添加到zip
-                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), table.getPackageName())));
+                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), generateRule.getPackageName())));
                 IOUtils.write(sw.toString(), zip, "UTF-8");
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();

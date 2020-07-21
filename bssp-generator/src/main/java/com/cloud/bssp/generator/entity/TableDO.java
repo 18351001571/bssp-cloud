@@ -36,16 +36,4 @@ public class TableDO {
      * 表名称数组
      */
     private String[] tableNames;
-    /**
-     * 包名
-     */
-    private String packageName;
-    /**
-     * 作者
-     */
-    private String author;
-    /**
-     * 服务名称
-     */
-    private String serviceName;
 }

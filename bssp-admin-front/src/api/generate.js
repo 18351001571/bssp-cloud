@@ -9,7 +9,7 @@ import request from '@/utils/request'
  */
 export function getPageList(data) {
   return request({
-    url: '/generate-api/generate/pageList',
+    url: '/generate/pageList',
     method: 'post',
     data
   })
@@ -24,7 +24,7 @@ export function getPageList(data) {
  */
 export function generateCode(data) {
   return request({
-    url: '/generate-api/generate/generateCode',
+    url: '/generate/generateCode',
     method: 'post',
     responseType: 'blob',
     data
@@ -40,9 +40,39 @@ export function generateCode(data) {
  */
 export function previewCode(data) {
   return request({
-    url: '/generate-api/generate/previewCode',
+    url: '/generate/previewCode',
+    method: 'get',
+    params: { tableName: data }
+  })
+}
+
+/**
+ * Description: 保存规则
+ * Created date: 2020/7/20
+ * @param null
+ * @return
+ * @author weirx
+ */
+export function saveRules(data) {
+  return request({
+    url: '/generate/saveRules',
     method: 'post',
     data
+  })
+}
+
+
+/**
+ * Description: 根据id获取规则明细
+ * Created date: 2020/7/20
+ * @param null
+ * @return
+ * @author weirx
+ */
+export function getRules() {
+  return request({
+    url: '/generate/getRules',
+    method: 'get'
   })
 }
 

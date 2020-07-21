@@ -47,5 +47,6 @@ public class ${className}DTO extends BaseDTO{
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     #end
     private $column.attrType $column.attrname;
+
 #end
 }

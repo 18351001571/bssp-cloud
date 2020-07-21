@@ -57,5 +57,6 @@ public class ${className}DO  {
     @TableField("`desc`")
     #end
     private $column.attrType $column.attrname;
+
 #end
 }

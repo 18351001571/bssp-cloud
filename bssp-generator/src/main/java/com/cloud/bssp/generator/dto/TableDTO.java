@@ -44,22 +44,4 @@ public class TableDTO extends BaseDTO {
      */
     @ApiModelProperty(notes  = "创建时间")
     private String[] tableNames;
-
-    /**
-     * 包名
-     */
-    @ApiModelProperty(notes  = "包名")
-    private String packageName;
-
-    /**
-     * 作者
-     */
-    @ApiModelProperty(notes  = "作者")
-    private String author;
-
-    /**
-     * 服务名称
-     */
-    @ApiModelProperty(notes  = "服务名称")
-    private String serviceName;
 }

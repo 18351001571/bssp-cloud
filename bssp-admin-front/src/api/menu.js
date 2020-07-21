@@ -9,7 +9,7 @@ import request from '@/utils/request'
  */
 export function getMenuTree(token) {
   return request({
-    url: '/admin-api/sysmenu/getTree',
+    url: '/admin/sysmenu/getTree',
     method: 'get',
     params: { token }
   })
@@ -24,7 +24,7 @@ export function getMenuTree(token) {
  */
 export function getPageMenu(data) {
   return request({
-    url: '/admin-api/sysmenu/pageList',
+    url: '/admin/sysmenu/pageList',
     method: 'post',
     data
   })
@@ -39,7 +39,7 @@ export function getPageMenu(data) {
  */
 export function create(data) {
   return request({
-    url: '/admin-api/sysmenu/save',
+    url: '/admin/sysmenu/save',
     method: 'post',
     data
   })
@@ -54,7 +54,7 @@ export function create(data) {
  */
 export function update(data) {
   return request({
-    url: '/admin-api/sysmenu/update',
+    url: '/admin/sysmenu/update',
     method: 'post',
     data
   })

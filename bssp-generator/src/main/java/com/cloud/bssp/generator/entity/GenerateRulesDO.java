@@ -41,7 +41,7 @@ public class GenerateRulesDO  {
     /**
      * 是否忽略前缀 1是0否
      */
-    private String isIgnorePrefix;
+    private Integer isIgnorePrefix;
     /**
      * 表前缀
      */
