@@ -54,7 +54,8 @@ public class SysMenuController {
      * @return
      */
     @ApiOperation(value = "list列表")
-    @PostMapping("/list")public R list(@RequestBody SysMenuDTO sysMenuDTO) {
+    @PostMapping("/list")
+    public R list(@RequestBody SysMenuDTO sysMenuDTO) {
         QueryWrapper<SysMenuDO> queryWrapper = new QueryWrapper<>(SysMenuDoConvert.dtoToDo(sysMenuDTO));
         List<SysMenuDO> sysMenuList = sysMenuService.list(queryWrapper);
         return R.success(SysMenuDoConvert.listConvert(sysMenuList));
@@ -95,7 +96,7 @@ public class SysMenuController {
     @ApiOperation(value = "更新")
     @PostMapping("/update")
     public R update(@RequestBody SysMenuDTO sysMenuDTO) {
-        boolean flag =  sysMenuService.updateById(SysMenuDoConvert.dtoToDo(sysMenuDTO));
+        boolean flag = sysMenuService.updateById(SysMenuDoConvert.dtoToDo(sysMenuDTO));
         if (flag) {
             return R.success();
         }

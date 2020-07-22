@@ -1,0 +1,78 @@
+package ${package}.convert;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${package}.dto.${className}DTO;
+import ${package}.entity.${className}DO;
+import com.cloud.bssp.util.BeanCopierUtil;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Description: ${comments}
+ * Create Date: ${date}
+ * Modified By：<br>
+ * Modified Date：<br>
+ * Why & What is modified：<br>
+ *
+ * @author ${author}
+ * @version ${version}
+ */
+@Component
+public class ${className}DoConvert {
+
+    /**
+     * DtoToDo
+     *
+     * @param ${classname}DTO
+     * @return
+     */
+    public static ${className}DO dtoToDo(${className}DTO ${classname}DTO) {
+            ${className}DO ${classname}DO = new ${className}DO();
+        BeanCopierUtil.copy(${classname}DTO, ${classname}DO);
+        return ${classname}DO;
+    }
+
+    /**
+     * DoToDto
+     *
+     * @param ${classname}DO
+     * @return
+     */
+    public static ${className}DTO doToDto(${className}DO ${classname}DO) {
+            ${className}DTO ${classname}DTO = new ${className}DTO();
+        BeanCopierUtil.copy(${classname}DO, ${classname}DTO);
+        return ${classname}DTO;
+    }
+
+    /**
+     * Page<DO> to Page<DTO>
+     *
+     * @param pageDO
+     * @return
+     */
+    public static Page<${className}DTO> pageConvert(Page<${className}DO> pageDO) {
+        List<${className}DTO> list = listConvert(pageDO.getRecords());
+        Page<${className}DTO> page = new Page<>(pageDO.getCurrent(), pageDO.getSize(), pageDO.getTotal());
+        page.setRecords(list);
+        return page;
+    }
+
+    /**
+     * list<DO> to list<DTO>
+     *
+     * @param listDO
+     * @return
+     */
+    public static List<${className}DTO> listConvert(List<${className}DO> listDO) {
+        List<${className}DTO> list = new ArrayList<>();
+            ${className}DTO ${classname}DTO;
+        for (${className}DO ${classname}DO : listDO) {
+                ${classname}DTO = new ${className}DTO();
+            BeanCopierUtil.copy(${classname}DO, ${classname}DTO);
+            list.add(${classname}DTO);
+        }
+        return list;
+    }
+}

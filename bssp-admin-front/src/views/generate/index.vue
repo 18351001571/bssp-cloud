@@ -53,7 +53,8 @@
           <el-button type="primary" size="mini" icon="el-icon-search" @click="preview(row)">
             预览
           </el-button>
-          <el-button v-if="row.status!='deleted'" icon="el-icon-download" size="mini" type="danger" @click="generate(row,$index)">
+          <el-button v-if="row.status!='deleted'" icon="el-icon-download" size="mini" type="danger"
+                     @click="generate(row,$index)">
             生成
           </el-button>
         </template>
@@ -93,10 +94,10 @@
     </el-dialog>
 
     <el-dialog title="预览" :visible.sync="previewVisible">
-        <el-tabs v-model="activeName" type="card">
-          <el-tab-pane v-for = "item in templateList" :label="item.key" :name="item.key" >
-            <textarea style="width: 100%; height: 400px; border: #99a9bf" >{{item.value}}</textarea></el-tab-pane>
-        </el-tabs>
+      <el-tabs v-model="activeName" type="card">
+        <el-tab-pane v-for="item in templateList" :label="item.key" :name="item.key">
+          <textarea style="width: 100%; height: 400px; border: #99a9bf">{{item.value}}</textarea></el-tab-pane>
+      </el-tabs>
       <div slot="footer" class="dialog-footer">
         <el-button @click="previewVisible = false">
           关闭

@@ -1,7 +1,7 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-<!--      <router-view :key="key" />-->
+      <!--      <router-view :key="key" />-->
       <keep-alive :include="cachedViews">
         <router-view></router-view>
       </keep-alive>
@@ -10,14 +10,14 @@
 </template>
 
 <script>
-export default {
-  name: 'AppMain',
-  computed: {
-    cachedViews() {
-      return this.$store.state.tagsView.cachedViews
+  export default {
+    name: 'AppMain',
+    computed: {
+      cachedViews() {
+        return this.$store.state.tagsView.cachedViews
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -28,6 +28,7 @@ export default {
     position: relative;
     overflow: hidden;
   }
+
   .fixed-header + .app-main {
     padding-top: 50px;
   }
@@ -38,7 +39,7 @@ export default {
       min-height: calc(100vh - 84px);
     }
 
-    .fixed-header+.app-main {
+    .fixed-header + .app-main {
       padding-top: 84px;
     }
   }

@@ -35,9 +35,10 @@
     <modules>
         <module>bssp-admin-service</module>
         <module>bssp-auth-service</module>
-        <module>bssp-gateway</module>
-        <module>bssp-generator</module>
-        <module>bssp-message</module>
+        <module>bssp-gateway-service</module>
+        <module>bssp-generator-service</module>
+        <module>bssp-message-service</module>
+        <module>bssp-user-service</module>
     </modules>
 
     <dependencies>

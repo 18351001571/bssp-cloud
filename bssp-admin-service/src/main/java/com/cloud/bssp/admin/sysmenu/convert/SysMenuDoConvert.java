@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Module: SysMenuDoConvert.java
  *
@@ -18,7 +19,7 @@ import java.util.List;
  * @Descriptions: 菜单
  */
 @Component
-public class SysMenuDoConvert  {
+public class SysMenuDoConvert {
 
     /**
      * DtoToDo

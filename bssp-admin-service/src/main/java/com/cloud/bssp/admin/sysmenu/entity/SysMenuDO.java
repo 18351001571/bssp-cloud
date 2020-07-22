@@ -5,9 +5,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.time.LocalDateTime;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
+
 /**
  * Module: SysMenuDO.java
  *
@@ -19,7 +22,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "bssp_sys_menu")
-public class SysMenuDO  {
+public class SysMenuDO {
 
     /**
      * 主键

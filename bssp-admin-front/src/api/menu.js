@@ -11,7 +11,7 @@ export function getMenuTree(token) {
   return request({
     url: '/admin/sysmenu/getTree',
     method: 'get',
-    params: { token }
+    params: {token}
   })
 }
 

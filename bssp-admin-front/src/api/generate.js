@@ -42,7 +42,7 @@ export function previewCode(data) {
   return request({
     url: '/generate/previewCode',
     method: 'get',
-    params: { tableName: data }
+    params: {tableName: data}
   })
 }
 

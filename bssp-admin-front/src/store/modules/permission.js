@@ -1,6 +1,7 @@
-import { asyncRoutes, constantRoutes } from '@/router'
-import { getMenuTree } from '@/api/menu'
+import {asyncRoutes, constantRoutes} from '@/router'
+import {getMenuTree} from '@/api/menu'
 import Layout from '@/layout'
+
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
@@ -29,7 +30,7 @@ export function generaMenu(routes, data) {
       // hidden: true,
       children: [],
       name: 'menu_' + item.id,
-      meta: { title: item.label, icon: item.icon, id: item.id, roles: ['admin'] }
+      meta: {title: item.label, icon: item.icon, id: item.id, roles: ['admin']}
     }
     if (item.children) {
       generaMenu(menu.children, item.children)
@@ -37,6 +38,7 @@ export function generaMenu(routes, data) {
     routes.push(menu)
   })
 }
+
 /**
  * Filter asynchronous routing tables by recursion
  * @param routes asyncRoutes
@@ -46,7 +48,7 @@ export function filterAsyncRoutes(routes, roles) {
   const res = []
 
   routes.forEach(route => {
-    const tmp = { ...route }
+    const tmp = {...route}
     if (hasPermission(roles, tmp)) {
       if (tmp.children) {
         tmp.children = filterAsyncRoutes(tmp.children, roles)
@@ -71,7 +73,7 @@ const mutations = {
 }
 
 const actions = {
-  generateRoutes({ commit }, roles) {
+  generateRoutes({commit}, roles) {
     return new Promise(resolve => {
       const loadMenuData = []
       // 先查询后台并返回左侧菜单数据并把数据添加到路由
