@@ -96,7 +96,7 @@
     <el-dialog title="预览" :visible.sync="previewVisible">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane v-for="item in templateList" :label="item.key" :name="item.key">
-          <textarea style="width: 100%; height: 400px; border: #99a9bf">{{item.value}}</textarea></el-tab-pane>
+          <textarea readonly style="width: 100%; height: 400px; border: #99a9bf;resize:none;">{{item.value}}</textarea></el-tab-pane>
       </el-tabs>
       <div slot="footer" class="dialog-footer">
         <el-button @click="previewVisible = false">

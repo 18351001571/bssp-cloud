@@ -30,6 +30,7 @@
         <spring-boot-test.version>2.2.5.RELEASE</spring-boot-test.version>
         <bssp-common-spring-boot-starter.version>0.0.1-SNAPSHOT</bssp-common-spring-boot-starter.version>
         <lombok.version>1.16.10</lombok.version>
+        <feign.version>2.2.3.RELEASE</feign.version>
     </properties>
 
     <modules>
@@ -91,6 +92,14 @@
             <artifactId>orika-core</artifactId>
             <version>1.5.2</version><!-- or latest version -->
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-feign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

@@ -7,15 +7,15 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
     #foreach ($column in $columns)
         #if($column.attrType == 'LocalDate')
-        import java.time.LocalDate;
+import java.time.LocalDate;
             #break
         #end
     #end
     #foreach ($column in $columns)
         #if($column.attrType == 'LocalDateTime')
-        import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
-        import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.annotation.JSONField;
             #break
         #end
     #end
