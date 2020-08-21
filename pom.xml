@@ -35,7 +35,8 @@
 
     <modules>
         <module>bssp-admin-service</module>
-        <module>bssp-auth-service</module>
+        <module>bssp-resource-service</module>
+        <module>bssp-authorization-service</module>
         <module>bssp-gateway-service</module>
         <module>bssp-generator-service</module>
         <module>bssp-message-service</module>
@@ -43,6 +44,13 @@
     </modules>
 
     <dependencies>
+        <!-- JOL全称为Java Object Layout，是分析JVM中对象布局的工具 -->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.9</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

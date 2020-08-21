@@ -36,27 +36,27 @@ import lombok.Data;
 public class ${className}DO {
 
     #foreach ($column in $columns)
-        /**
-         * $column.comments
-         */
-        #if ("id" == $column.attrname)
-        @TableId(value = "id", type = IdType.AUTO)
-        #end
-        #if ("createTime" == $column.attrname)
-        @TableField(fill = FieldFill.INSERT)
-        #end
-        #if ("updateTime" == $column.attrname)
-        @TableField(fill = FieldFill.INSERT_UPDATE)
-        #end
-        #if ("date" == $column.dataType)
-        @JSONField(format = "yyyy-MM-dd")
-        #end
-        #if ("datetime" == $column.dataType)
-        @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-        #end
-        #if ("desc" == $column.attrname)
-        @TableField("`desc`")
-        #end
+    /**
+    * $column.comments
+    */
+    #if ("id" == $column.attrname)
+    @TableId(value = "id", type = IdType.AUTO)
+    #end
+    #if ("createTime" == $column.attrname)
+    @TableField(fill = FieldFill.INSERT)
+    #end
+    #if ("updateTime" == $column.attrname)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    #end
+    #if ("date" == $column.dataType)
+    @JSONField(format = "yyyy-MM-dd")
+    #end
+    #if ("datetime" == $column.dataType)
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    #end
+    #if ("desc" == $column.attrname)
+    @TableField("`desc`")
+    #end
     private $column.attrType $column.attrname;
 
     #end

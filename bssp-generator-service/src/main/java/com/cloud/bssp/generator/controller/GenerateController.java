@@ -9,6 +9,7 @@ import com.cloud.bssp.generator.entity.GenerateRulesDO;
 import com.cloud.bssp.generator.entity.TableDO;
 import com.cloud.bssp.generator.service.GenerateRulesService;
 import com.cloud.bssp.generator.service.GenerateService;
+import com.cloud.bssp.generator.service.ReportService;
 import com.cloud.bssp.util.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +50,11 @@ public class GenerateController {
     private GenerateRulesService generateRulesService;
 
     /**
+     * 报表service
+     */
+    private ReportService reportService;
+
+    /**
      * 分页列表
      * @param tableDTO
      * @return
@@ -68,7 +75,12 @@ public class GenerateController {
     @ApiOperation(value = "代码生成")
     @PostMapping("/generateCode")
     public byte[] generateCode(@RequestBody TableDTO tableDTO) {
-        ByteArrayOutputStream outputStream = generateService.generateCode(TableDoConvert.dtoToDo(tableDTO));
+        ByteArrayOutputStream outputStream = null;
+        try {
+            outputStream = generateService.generateCode(TableDoConvert.dtoToDo(tableDTO));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (ObjectUtils.isEmpty(outputStream)) {
             return null;
         }
@@ -116,5 +128,24 @@ public class GenerateController {
     public R info() {
         GenerateRulesDO generateRules = generateRulesService.getRules();
         return R.success(GenerateRulesDoConvert.doToDto(generateRules));
+    }
+
+    /**
+     * 报表导出
+     * @return
+     */
+    @ApiOperation(value = "报表导出")
+    @PostMapping("/report")
+    public byte[] report() {
+        ByteArrayOutputStream outputStream = null;
+        try {
+            outputStream = reportService.report();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (ObjectUtils.isEmpty(outputStream)) {
+            return null;
+        }
+        return outputStream.toByteArray();
     }
 }

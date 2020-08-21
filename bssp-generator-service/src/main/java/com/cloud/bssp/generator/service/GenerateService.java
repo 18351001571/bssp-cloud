@@ -5,6 +5,7 @@ import com.cloud.bssp.generator.entity.TableColumnDO;
 import com.cloud.bssp.generator.entity.TableDO;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +64,7 @@ public interface GenerateService {
      * @return com.cloud.bssp.util.R
      * @author weirx
      */
-    ByteArrayOutputStream generateCode(TableDO tableDO);
+    ByteArrayOutputStream generateCode(TableDO tableDO) throws IOException;
 
     /**
      * Description: 代码预览

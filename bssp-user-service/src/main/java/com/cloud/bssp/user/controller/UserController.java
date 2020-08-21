@@ -2,10 +2,10 @@ package com.cloud.bssp.user.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cloud.bssp.user.entity.UserDO;
-import com.cloud.bssp.user.dto.UserDTO;
-import com.cloud.bssp.user.service.UserService;
 import com.cloud.bssp.user.convert.UserDoConvert;
+import com.cloud.bssp.user.dto.UserDTO;
+import com.cloud.bssp.user.entity.UserDO;
+import com.cloud.bssp.user.service.UserService;
 import com.cloud.bssp.util.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -69,8 +69,8 @@ public class UserController {
      */
     @ApiOperation(value = "根据主键查询")
     @GetMapping("/info/getById")
-    public R info(@RequestParam("id")Long id) {
-            UserDO user = userService.getById(id);
+    public R info(@RequestParam("id") Long id) {
+        UserDO user = userService.getById(id);
         return R.success(UserDoConvert.doToDto(user));
     }
 
@@ -102,5 +102,22 @@ public class UserController {
             return R.success();
         }
         return R.failed();
+    }
+
+    /**
+     * Description: 根据username获取用户
+     * Created date: 2020/7/23
+     * @param username
+     * @return com.cloud.bssp.util.R
+     * @author weirx
+     */
+    @ApiOperation(value = "根据username获取用户")
+    @GetMapping("/getByUsername")
+    public R getByUsername(@RequestParam String username) {
+        UserDO userDO = new UserDO();
+        userDO.setUsername(username);
+        QueryWrapper<UserDO> queryWrapper = new QueryWrapper<>(userDO);
+        UserDO user = userService.getOne(queryWrapper);
+        return R.success(UserDoConvert.doToDto(user));
     }
 }

@@ -4,12 +4,12 @@ import com.cloud.bssp.util.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-        import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
  * Description: 用户表
- * Create Date: 2020-07-22T16:35:33.892
+ * Create Date: 2020-07-23T14:08:34.269
  * Modified By：<br>
  * Modified Date：<br>
  * Why & What is modified：<br>
@@ -25,7 +25,7 @@ public class UserDTO extends BaseDTO {
          * 主键
          */
         @ApiModelProperty(notes = "主键")
-            @JsonFormat(shape = JsonFormat.Shape.STRING)
+        @JsonFormat(shape = JsonFormat.Shape.STRING)
         private Long id;
 
         /**
@@ -39,6 +39,18 @@ public class UserDTO extends BaseDTO {
          */
         @ApiModelProperty(notes = "真实姓名")
         private String realName;
+
+        /**
+         * 用户名
+         */
+        @ApiModelProperty(notes = "用户名")
+        private String username;
+
+        /**
+         * 密码
+         */
+        @ApiModelProperty(notes = "密码")
+        private String password;
 
         /**
          * 性别 1男2女0未知
@@ -62,7 +74,7 @@ public class UserDTO extends BaseDTO {
          * 证件号码
          */
         @ApiModelProperty(notes = "证件号码")
-        private Integer certificatesNum;
+        private Long certificatesNum;
 
         /**
          * 地址
@@ -83,17 +95,17 @@ public class UserDTO extends BaseDTO {
         private Integer isDelete;
 
         /**
-         * 
+         *
          */
         @ApiModelProperty(notes = "")
-            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime createTime;
 
         /**
-         * 
+         *
          */
         @ApiModelProperty(notes = "")
-            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime updateTime;
 
 }

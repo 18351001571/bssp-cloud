@@ -21,11 +21,9 @@ import org.apache.velocity.app.Velocity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.ResourceUtils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.zip.ZipEntry;
@@ -54,6 +52,8 @@ public class GenerateServiceImpl implements GenerateService {
      * 生成规则service
      */
     private GenerateRulesService generateRulesService;
+
+    private List<File> staticFiles;
 
     @Override
     public TableDO queryTable(String tableName) {
@@ -96,7 +96,7 @@ public class GenerateServiceImpl implements GenerateService {
     }
 
     @Override
-    public ByteArrayOutputStream generateCode(TableDO tableDO) {
+    public ByteArrayOutputStream generateCode(TableDO tableDO) throws IOException {
         List<GenerateRulesDO> list = generateRulesService.list();
         if (CollectionUtils.isEmpty(list)) {
             return null;
@@ -212,7 +212,7 @@ public class GenerateServiceImpl implements GenerateService {
     }
 
     private Map<String, Object> generatorCode(TableDO table, GenerateRulesDO generateRule,
-                                              List<TableColumnDO> columns, ZipOutputStream zip) {
+                                              List<TableColumnDO> columns, ZipOutputStream zip) throws IOException {
         // 表信息
         TableEntity tableEntity = new TableEntity();
         tableEntity.setTableName(table.getTableName());
