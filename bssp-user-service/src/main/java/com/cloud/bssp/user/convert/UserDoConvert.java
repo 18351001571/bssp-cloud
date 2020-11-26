@@ -29,7 +29,7 @@ public class UserDoConvert {
      * @return
      */
     public static UserDO dtoToDo(UserDTO userDTO) {
-            UserDO userDO = new UserDO();
+        UserDO userDO = new UserDO();
         BeanCopierUtil.copy(userDTO, userDO);
         return userDO;
     }
@@ -41,7 +41,7 @@ public class UserDoConvert {
      * @return
      */
     public static UserDTO doToDto(UserDO userDO) {
-            UserDTO userDTO = new UserDTO();
+        UserDTO userDTO = new UserDTO();
         BeanCopierUtil.copy(userDO, userDTO);
         return userDTO;
     }
@@ -67,9 +67,9 @@ public class UserDoConvert {
      */
     public static List<UserDTO> listConvert(List<UserDO> listDO) {
         List<UserDTO> list = new ArrayList<>();
-            UserDTO userDTO;
+        UserDTO userDTO;
         for (UserDO userDO : listDO) {
-                userDTO = new UserDTO();
+            userDTO = new UserDTO();
             BeanCopierUtil.copy(userDO, userDTO);
             list.add(userDTO);
         }

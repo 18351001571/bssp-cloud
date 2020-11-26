@@ -1,0 +1,23 @@
+@startuml
+scale 350 width
+[*] --> NEW: 实例化
+
+NEW --> RUNNABLE:Thread.start()
+
+state RUNNABLE{
+    RUNNING --> READY : 系统调度\n yield()
+    READY --> RUNNING : 系统调度
+}
+RUNNABLE --> WAITING : Object.wait()\n Thread.join()\n LockSupport.park()
+WAITING --> RUNNABLE : Object.notify()\n Object.notifyAll()\n LockSupport.unpark(Thread)
+
+RUNNABLE --> TIMED_WAITING : Object.wait(long)\n Thread.join(long)\n Thread.sleep(long)\n LockSupport.parNanos(long)\n LockSupport.parkUntil(long)
+TIMED_WAITING--> RUNNABLE :Object.notify()\n Object.notifyAll()\n LockSupport.unpark(Thread)
+
+RUNNABLE --> BLOCKED : 等待获取synchronized
+BLOCKED--> RUNNABLE: 获取到synchronized
+
+RUNNABLE --> TERMINATED : 执行完成\n 出现未捕获的异常或错误
+
+TERMINATED --> [*]
+@enduml

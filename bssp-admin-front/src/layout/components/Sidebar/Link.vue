@@ -5,39 +5,39 @@
 </template>
 
 <script>
-  import {isExternal} from '@/utils/validate'
+import {isExternal} from '@/utils/validate'
 
-  export default {
-    props: {
-      to: {
-        type: String,
-        required: true
-      }
+export default {
+  props: {
+    to: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    isExternal() {
+      return isExternal(this.to)
     },
-    computed: {
-      isExternal() {
-        return isExternal(this.to)
-      },
-      type() {
-        if (this.isExternal) {
-          return 'a'
-        }
-        return 'router-link'
+    type() {
+      if (this.isExternal) {
+        return 'a'
       }
-    },
-    methods: {
-      linkProps(to) {
-        if (this.isExternal) {
-          return {
-            href: to,
-            target: '_blank',
-            rel: 'noopener'
-          }
-        }
+      return 'router-link'
+    }
+  },
+  methods: {
+    linkProps(to) {
+      if (this.isExternal) {
         return {
-          to: to
+          href: to,
+          target: '_blank',
+          rel: 'noopener'
         }
+      }
+      return {
+        to: to
       }
     }
   }
+}
 </script>

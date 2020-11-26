@@ -15,13 +15,13 @@
       </el-button>
     </div>
     <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
+        v-loading="listLoading"
+        :data="list"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+        style="width: 100%;"
     >
       <el-table-column label="菜单名称">
         <template slot-scope="scope">
@@ -115,100 +115,100 @@
 </template>
 
 <script>
-  import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-  import {create, getPageMenu, update} from "@/api/menu";
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import {create, getPageMenu, update} from "@/api/menu";
 
-  export default {
-    components: {Pagination},
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          1: 'success',
-          2: 'info',
-          0: 'danger'
-        }
-        return statusMap[status]
+export default {
+  components: {Pagination},
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        1: 'success',
+        2: 'info',
+        0: 'danger'
       }
-    },
-    data() {
-      return {
-        list: null,
-        listLoading: true,
-        downloadLoading: false,
-        isEnableOptions: [{
-          label: '启用',
-          value: 1
-        }, {
-          label: '禁用',
-          value: 0
-        }],
-        isPublicOptions: [{
-          label: '是',
-          value: 1
-        }, {
-          label: '否',
-          value: 0
-        }],
-        isEnableNames: {
-          1: '启用',
-          0: '禁用'
-        },
-        isPublicNames: {
-          1: '是',
-          0: '否'
-        },
-        total: 0,
-        listQuery: {
-          page: 1,
-          limit: 10,
-          importance: undefined,
-          label: undefined,
-          type: undefined,
-          sort: 'id'
-        },
-        dialogFormVisible: false,
-        dialogStatus: '',
-        textMap: {
-          update: 'Edit',
-          create: 'Create'
-        },
-        dialogPvVisible: false,
-        temp: {
-          label: '',
-          isPublic: 0,
-          path: '',
-          component: '',
-          isEnable: 1,
-          sortValue: undefined,
-          icon: '',
-          parentId: 0,
-          desc: '',
-        },
-        columnLabel: {
-          label: '菜单名称',
-          isPublic: '公共菜单',
-          path: '接口地址',
-          component: '页面地址',
-          isEnable: '启用状态',
-          sortValue: '排序',
-          icon: '图标',
-          parentId: '父id',
-          desc: '描述',
-        },
-        rules: {
-          type: [{required: true, message: 'type is required', trigger: 'change'}],
-          timestamp: [{type: 'date', required: true, message: 'timestamp is required', trigger: 'change'}],
-          title: [{required: true, message: 'title is required', trigger: 'blur'}]
-        },
-      }
-    },
-    created() {
-      this.getList()
-    },
-    methods: {
-      getList() {
-        this.listLoading = true
-        getPageMenu(this.listQuery).then(response => {
+      return statusMap[status]
+    }
+  },
+  data() {
+    return {
+      list: null,
+      listLoading: true,
+      downloadLoading: false,
+      isEnableOptions: [{
+        label: '启用',
+        value: 1
+      }, {
+        label: '禁用',
+        value: 0
+      }],
+      isPublicOptions: [{
+        label: '是',
+        value: 1
+      }, {
+        label: '否',
+        value: 0
+      }],
+      isEnableNames: {
+        1: '启用',
+        0: '禁用'
+      },
+      isPublicNames: {
+        1: '是',
+        0: '否'
+      },
+      total: 0,
+      listQuery: {
+        page: 1,
+        limit: 10,
+        importance: undefined,
+        label: undefined,
+        type: undefined,
+        sort: 'id'
+      },
+      dialogFormVisible: false,
+      dialogStatus: '',
+      textMap: {
+        update: 'Edit',
+        create: 'Create'
+      },
+      dialogPvVisible: false,
+      temp: {
+        label: '',
+        isPublic: 0,
+        path: '',
+        component: '',
+        isEnable: 1,
+        sortValue: undefined,
+        icon: '',
+        parentId: 0,
+        desc: '',
+      },
+      columnLabel: {
+        label: '菜单名称',
+        isPublic: '公共菜单',
+        path: '接口地址',
+        component: '页面地址',
+        isEnable: '启用状态',
+        sortValue: '排序',
+        icon: '图标',
+        parentId: '父id',
+        desc: '描述',
+      },
+      rules: {
+        type: [{required: true, message: 'type is required', trigger: 'change'}],
+        timestamp: [{type: 'date', required: true, message: 'timestamp is required', trigger: 'change'}],
+        title: [{required: true, message: 'title is required', trigger: 'blur'}]
+      },
+    }
+  },
+  created() {
+    this.getList()
+  },
+  methods: {
+    getList() {
+      this.listLoading = true
+      getPageMenu(this.listQuery).then(response => {
             this.total = response.data.total
             this.list = response.data.records
             // Just to simulate the time of the request
@@ -218,112 +218,112 @@
           },
           error => {
           })
-      },
-      handleFilter() {
-        this.listQuery.page = 1
-        this.getList()
-      },
-      statusFilter(status) {
-        const statusMap = {
-          1: '启用',
-          0: '禁用'
-        }
-        return statusMap[status]
-      },
-      resetTemp() {
-        this.temp = {
-          label: '',
-          isPublic: 0,
-          path: '',
-          component: '',
-          isEnable: 1,
-          sortValue: undefined,
-          icon: '',
-          parentId: 0,
-          desc: '',
-        }
-      },
-      handleCreate() {
-        this.resetTemp(),
+    },
+    handleFilter() {
+      this.listQuery.page = 1
+      this.getList()
+    },
+    statusFilter(status) {
+      const statusMap = {
+        1: '启用',
+        0: '禁用'
+      }
+      return statusMap[status]
+    },
+    resetTemp() {
+      this.temp = {
+        label: '',
+        isPublic: 0,
+        path: '',
+        component: '',
+        isEnable: 1,
+        sortValue: undefined,
+        icon: '',
+        parentId: 0,
+        desc: '',
+      }
+    },
+    handleCreate() {
+      this.resetTemp(),
           this.dialogStatus = 'create'
-        this.dialogFormVisible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })
-      },
-      createData() {
-        this.$refs['dataForm'].validate((valid) => {
-          if (valid) {
-            create(this.temp).then(() => {
-              this.list.unshift(this.temp)
-              this.dialogFormVisible = false
-              this.$notify({
-                title: '成功',
-                message: '创建成功',
-                type: 'success',
-                duration: 2000
-              }),
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    createData() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          create(this.temp).then(() => {
+            this.list.unshift(this.temp)
+            this.dialogFormVisible = false
+            this.$notify({
+              title: '成功',
+              message: '创建成功',
+              type: 'success',
+              duration: 2000
+            }),
                 this.getList()
-            })
-          }
-        })
-      },
-      handleUpdate(row) {
-        this.temp = Object.assign({}, row) // copy obj
-        this.dialogStatus = 'update'
-        this.dialogFormVisible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })
-      },
-      updateData() {
-        this.$refs['dataForm'].validate((valid) => {
-          if (valid) {
-            const tempData = Object.assign({}, this.temp)
-            update(tempData).then(() => {
-              const index = this.list.findIndex(v => v.id === this.temp.id)
-              this.list.splice(index, 1, this.temp)
-              this.dialogFormVisible = false
-              this.$notify({
-                title: '成功',
-                message: '更新成功',
-                type: 'success',
-                duration: 2000
-              }),
+          })
+        }
+      })
+    },
+    handleUpdate(row) {
+      this.temp = Object.assign({}, row) // copy obj
+      this.dialogStatus = 'update'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    updateData() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          const tempData = Object.assign({}, this.temp)
+          update(tempData).then(() => {
+            const index = this.list.findIndex(v => v.id === this.temp.id)
+            this.list.splice(index, 1, this.temp)
+            this.dialogFormVisible = false
+            this.$notify({
+              title: '成功',
+              message: '更新成功',
+              type: 'success',
+              duration: 2000
+            }),
                 this.getList()
-            })
-          }
-        })
-      },
-      handleDelete(row) {
-        const tempData = {'id': row.id, 'isDelete': 1}
-        update(tempData).then(() => {
-          const index = this.list.findIndex(v => v.id === this.temp.id)
-          this.list.splice(index, 1, this.temp)
-          this.dialogFormVisible = false
-          this.$notify({
-            title: '成功',
-            message: '删除成功',
-            type: 'success',
-            duration: 2000
-          }),
+          })
+        }
+      })
+    },
+    handleDelete(row) {
+      const tempData = {'id': row.id, 'isDelete': 1}
+      update(tempData).then(() => {
+        const index = this.list.findIndex(v => v.id === this.temp.id)
+        this.list.splice(index, 1, this.temp)
+        this.dialogFormVisible = false
+        this.$notify({
+          title: '成功',
+          message: '删除成功',
+          type: 'success',
+          duration: 2000
+        }),
             this.getList()
-        })
-      },
-      handleDownload() {
-        // this.downloadLoading = true
-        // import('@/vendor/Export2Excel').then(excel => {
-        //   const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        //   const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
-        //   const data = this.formatJson(filterVal)
-        //   excel.export_json_to_excel({
-        //     header: tHeader,
-        //     data,
-        //     filename: 'table-list'
-        //   })
-        //   this.downloadLoading = false
-        // })
-      },
-    }
+      })
+    },
+    handleDownload() {
+      // this.downloadLoading = true
+      // import('@/vendor/Export2Excel').then(excel => {
+      //   const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
+      //   const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+      //   const data = this.formatJson(filterVal)
+      //   excel.export_json_to_excel({
+      //     header: tHeader,
+      //     data,
+      //     filename: 'table-list'
+      //   })
+      //   this.downloadLoading = false
+      // })
+    },
   }
+}
 </script>

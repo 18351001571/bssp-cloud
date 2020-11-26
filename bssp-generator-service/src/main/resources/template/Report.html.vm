@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>报表</title>
+    <link rel="stylesheet" href="static/css/ns_report.css"/>
+    <link rel="stylesheet" href="static/css/ns_report_rsas.css"/>
+    <link rel="stylesheet" href="static/js/datepicker/skin/WdatePicker.css"/>
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/common.js"></script>
+    <script src="static/js/datepicker/WdatePicker.js"></script>
+</head>
+<body>
+<div id="report" class="wrapper_w800">
+    <div class="report_tip"></div>
+    <div id="head" class="report_title">
+        <h1>${title}</h1>
+        <span class="note">&nbsp;</span></div>
+    <!--head end,catalog start-->
+    <div id="content">
+        <div class="report_h report_h1">1.${firstTitle}</div>
+        <div class="report_content">
+            <div class="report_h report_h2" id="title00">1.1${secondTitle}</div>
+            <div>
+                <table id="vuln_distribution" class="report_table">
+                    <thead>
+                    <tr class="second_title">
+                        #foreach ($column in $columns)
+                            <th style='width:auto'>$column</th>
+                        #end
+                    </tr>
+                    </thead>
+                    <tbody>
+                        #foreach ($data in $data)
+                        <tr class="odd vuln_high" style="cursor:pointer;"
+                            onclick="no_toggle($foreach.count,'table_$foreach.count')">
+                            #foreach ($value in $data)
+                                <td>$value</td>
+                            #end
+                        </tr>
+
+                        <tr class="more hide odd detailData" id='table_$foreach.count'>
+                            <th></th>
+                            <td style="height:100%" class="extend" colspan='4'>
+                                <div class="tab-box">
+                                    <div class="tab-head" id="tab-head">
+                                        #foreach ($type in $types)
+                                            <div class="tab-head-div" id="tab-head-div">$type.value</div>
+                                        #end
+                                    </div>
+                                    <div class="tab-body" id="tab-body">
+                                        #foreach ($type in $types)
+                                            <ul class="tab-body-ul" id="tab-body-ul">
+                                                <table class="report_table">
+                                                    <thead>
+                                                    <tr class="second_title">
+                                                        #foreach ($field in $fields.get($type.key))
+                                                            <th style='width:auto'>$field.value</th>
+                                                        #end
+                                                    </tr>
+                                                    <tbody>
+                                                        #foreach ($data in $fieldData.get($data.assetIp).get($type.key))
+                                                        <tr class="second_title">
+                                                            #foreach($item in $data)
+                                                                <td>$item</td>
+                                                            #end
+                                                        </tr>
+                                                        #end
+                                                    </tbody>
+                                                </table>
+                                            </ul>
+                                        #end
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        #end
+                    </tbody>
+                    <tfoot>
+                    <tr class="first_title">
+                        <td colspan="4">合计</td>
+                        <td>105</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="report_tip"></div>
+</div>
+<!--content end-->
+</div>
+<script type="text/javascript">
+    text();
+</script>
+
+</body>
+</html>

@@ -8,9 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.cloud</groupId>
-    <artifactId>bssp-data-service</artifactId>
+    <artifactId>bssp-admin-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>bssp-data-service</name>
+    <name>bssp-admin-service</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

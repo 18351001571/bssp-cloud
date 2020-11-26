@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>report</title>
+    <style type="text/css">
+        body {
+            font-family: SimSun, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #333333;
+            background-color: #ffffff;
+        }
+
+        /*设定纸张大小*/
+        /* A4纸 */
+        /* @page{size:210mm*297mm} */
+        @page {
+            size: a4
+        }
+
+        table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border: 1px solid #dee2e6;
+        }
+
+        thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            background-color: #333333;
+            color: #dddddd;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+    </style>
+    <link rel="stylesheet" href="static/css/report.css"/>
+    <link rel="stylesheet" href="static/css/report_rsas.css"/>
+</head>
+<body>
+<div id="report" class="wrapper_w800">
+    <div id="content">
+        <div class="report_content">
+            ${template}
+        </div>
+    </div>
+</div>
+</body>
+</html>

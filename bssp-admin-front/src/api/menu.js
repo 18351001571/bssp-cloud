@@ -8,11 +8,11 @@ import request from '@/utils/request'
  * @date 2020/6/30
  */
 export function getMenuTree(token) {
-  return request({
-    url: '/admin/sysmenu/getTree',
-    method: 'get',
-    params: {token}
-  })
+    return request({
+        url: '/admin/sysmenu/getTree',
+        method: 'get',
+        params: {token}
+    })
 }
 
 /**
@@ -23,11 +23,11 @@ export function getMenuTree(token) {
  * @date 2020/6/30
  */
 export function getPageMenu(data) {
-  return request({
-    url: '/admin/sysmenu/pageList',
-    method: 'post',
-    data
-  })
+    return request({
+        url: '/admin/sysmenu/pageList',
+        method: 'post',
+        data
+    })
 }
 
 /**
@@ -38,11 +38,11 @@ export function getPageMenu(data) {
  * @author weirx
  */
 export function create(data) {
-  return request({
-    url: '/admin/sysmenu/save',
-    method: 'post',
-    data
-  })
+    return request({
+        url: '/admin/sysmenu/save',
+        method: 'post',
+        data
+    })
 }
 
 /**
@@ -53,9 +53,9 @@ export function create(data) {
  * @author weirx
  */
 export function update(data) {
-  return request({
-    url: '/admin/sysmenu/update',
-    method: 'post',
-    data
-  })
+    return request({
+        url: '/admin/sysmenu/update',
+        method: 'post',
+        data
+    })
 }

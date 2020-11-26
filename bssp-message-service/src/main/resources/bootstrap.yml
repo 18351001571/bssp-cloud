@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: bssp-message-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: 3a44ef28-b35c-44bb-8cd2-873c14ebc911
+        group: DEFAULT_GROUP
+        file-extension: yml
+rocketmq:
+  name-server: http://101.200.36.168:9876
+  producer:
+    #指定消息发送者的组，在控制台查询时会用到
+    group: test
+

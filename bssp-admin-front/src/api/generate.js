@@ -8,11 +8,11 @@ import request from '@/utils/request'
  * @date 2020/6/30
  */
 export function getPageList(data) {
-  return request({
-    url: '/generate/pageList',
-    method: 'post',
-    data
-  })
+    return request({
+        url: '/generate/pageList',
+        method: 'post',
+        data
+    })
 }
 
 /**
@@ -23,12 +23,12 @@ export function getPageList(data) {
  * @author weirx
  */
 export function generateCode(data) {
-  return request({
-    url: '/generate/generateCode',
-    method: 'post',
-    responseType: 'blob',
-    data
-  })
+    return request({
+        url: '/generate/generateCode',
+        method: 'post',
+        responseType: 'blob',
+        data
+    })
 }
 
 /**
@@ -39,11 +39,11 @@ export function generateCode(data) {
  * @author weirx
  */
 export function previewCode(data) {
-  return request({
-    url: '/generate/previewCode',
-    method: 'get',
-    params: {tableName: data}
-  })
+    return request({
+        url: '/generate/previewCode',
+        method: 'get',
+        params: {tableName: data}
+    })
 }
 
 /**
@@ -54,11 +54,11 @@ export function previewCode(data) {
  * @author weirx
  */
 export function saveRules(data) {
-  return request({
-    url: '/generate/saveRules',
-    method: 'post',
-    data
-  })
+    return request({
+        url: '/generate/saveRules',
+        method: 'post',
+        data
+    })
 }
 
 
@@ -70,9 +70,9 @@ export function saveRules(data) {
  * @author weirx
  */
 export function getRules() {
-  return request({
-    url: '/generate/getRules',
-    method: 'get'
-  })
+    return request({
+        url: '/generate/getRules',
+        method: 'get'
+    })
 }
 

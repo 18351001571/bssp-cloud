@@ -41,6 +41,7 @@
         <module>bssp-generator-service</module>
         <module>bssp-message-service</module>
         <module>bssp-user-service</module>
+        <module>bssp-monitor-service</module>
     </modules>
 
     <dependencies>

@@ -10,12 +10,12 @@ import com.cloud.bssp.generator.entity.TableDO;
 import com.cloud.bssp.generator.service.GenerateRulesService;
 import com.cloud.bssp.generator.service.GenerateService;
 import com.cloud.bssp.generator.service.ReportService;
+import com.cloud.bssp.generator.util.HtmlToPDF;
 import com.cloud.bssp.util.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
@@ -130,16 +130,35 @@ public class GenerateController {
         return R.success(GenerateRulesDoConvert.doToDto(generateRules));
     }
 
+
     /**
-     * 报表导出
+     * PDF报表导出
      * @return
      */
     @ApiOperation(value = "报表导出")
-    @PostMapping("/report")
-    public byte[] report() {
+    @PostMapping("/exportPdf")
+    public byte[] exportPdf(@RequestBody String html) {
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = reportService.getHtml(html);
+            ByteArrayOutputStream outputStream =
+                    HtmlToPDF.generatePdfByHtml(new String(byteArrayOutputStream.toByteArray()));
+            return outputStream.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * PDF报表导出
+     * @return
+     */
+    @ApiOperation(value = "报表导出")
+    @PostMapping("/exportHtml")
+    public byte[] exportHtml(@RequestBody String html) {
         ByteArrayOutputStream outputStream = null;
         try {
-            outputStream = reportService.report();
+            outputStream = reportService.reportHtml(html);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,5 +166,16 @@ public class GenerateController {
             return null;
         }
         return outputStream.toByteArray();
+    }
+
+    /**
+     * PDF报表导出
+     * @return
+     */
+    @ApiOperation(value = "报表导出")
+    @DeleteMapping("/deleteByIds")
+    public byte[] exportPdf(@RequestBody Long[] ids) {
+        System.out.println(ids);
+        return null;
     }
 }
