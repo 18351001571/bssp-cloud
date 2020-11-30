@@ -15,4 +15,12 @@ rocketmq:
   producer:
     #指定消息发送者的组，在控制台查询时会用到
     group: test
+    #发送失败超时时间
+    send-message-timeout: 3000
+    #重试次数
+    retry-times-when-send-failed: 3
+    #在其他broker服务端进行重试默认false，开启设置为on
+    retry-next-server: false
+    compress-message-body-threshold: 3
+
 
