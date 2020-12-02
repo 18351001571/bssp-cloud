@@ -1,10 +1,10 @@
-package com.cloud.bssp.monitor.sysmenu.service.impl;
+package com.cloud.bssp.admin.sysmenu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cloud.bssp.monitor.sysmenu.entity.SysMenuDO;
-import com.cloud.bssp.monitor.sysmenu.mapper.SysMenuMapper;
-import com.cloud.bssp.monitor.sysmenu.service.SysMenuService;
+import com.cloud.bssp.admin.sysmenu.entity.SysMenuDO;
+import com.cloud.bssp.admin.sysmenu.mapper.SysMenuMapper;
+import com.cloud.bssp.admin.sysmenu.service.SysMenuService;
 import com.cloud.bssp.constants.SystemConstant;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

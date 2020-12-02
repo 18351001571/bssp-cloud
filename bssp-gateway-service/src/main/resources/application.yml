@@ -12,26 +12,3 @@ spring:
       discovery:
         locator:
           enabled: true # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
-      routes:
-        #代码生成服务
-        - id: bssp-generate-service #payment_routh #路由的ID，没有固定规则，但要求唯一，建议配合服务名
-          uri: lb://bssp-generator-service #匹配后提供服务的路由地址
-          predicates:
-            - Path=/generate/** #断言，路径相匹配的进行路由
-        #后台admin
-        - id: bssp-admin-service #payment_routh #路由的ID，没有固定规则，但要求唯一，建议配合服务名
-          uri: lb://bssp-admin-service #匹配后提供服务的路由地址
-          predicates:
-            - Path=/admin/** #断言，路径相匹配的进行路由
-          filters:
-            - StripPrefix=1
-# 接口文档源配置
-knife4j:
-  isOpen: true
-  basePackage: com.cloud.bssp
-  title: bss-pgateway api
-  serviceUrl:
-  describe: 接口文档
-  author: weirx
-  version: 1.0
-  group-name: gateway代码生成接口文档1

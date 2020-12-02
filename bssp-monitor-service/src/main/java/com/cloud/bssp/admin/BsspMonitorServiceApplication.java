@@ -1,4 +1,4 @@
-package com.cloud.bssp.monitor;
+package com.cloud.bssp.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,10 +14,10 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  */
 @SpringBootApplication
 @ServletComponentScan
-public class BsspAdminServiceApplication {
+public class BsspMonitorServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BsspAdminServiceApplication.class, args);
+        SpringApplication.run(BsspMonitorServiceApplication.class, args);
     }
 
 }

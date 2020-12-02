@@ -1,8 +1,8 @@
-package com.cloud.bssp.monitor.sysmenu.convert;
+package com.cloud.bssp.admin.sysmenu.convert;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cloud.bssp.monitor.sysmenu.dto.SysMenuDTO;
-import com.cloud.bssp.monitor.sysmenu.entity.SysMenuDO;
+import com.cloud.bssp.admin.sysmenu.dto.SysMenuDTO;
+import com.cloud.bssp.admin.sysmenu.entity.SysMenuDO;
 import com.cloud.bssp.util.BeanCopierUtil;
 import org.springframework.stereotype.Component;
 

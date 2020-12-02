@@ -1,7 +1,7 @@
-package com.cloud.bssp.monitor.sysmenu.mapper;
+package com.cloud.bssp.admin.sysmenu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cloud.bssp.monitor.sysmenu.entity.SysMenuDO;
+import com.cloud.bssp.admin.sysmenu.entity.SysMenuDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

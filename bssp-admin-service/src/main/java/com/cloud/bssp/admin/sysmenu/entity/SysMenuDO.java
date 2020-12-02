@@ -1,4 +1,4 @@
-package com.cloud.bssp.monitor.sysmenu.entity;
+package com.cloud.bssp.admin.sysmenu.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;

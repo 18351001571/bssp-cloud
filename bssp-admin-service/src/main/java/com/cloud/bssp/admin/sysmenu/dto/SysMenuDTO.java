@@ -1,4 +1,4 @@
-package com.cloud.bssp.monitor.sysmenu.dto;
+package com.cloud.bssp.admin.sysmenu.dto;
 
 import com.cloud.bssp.util.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;

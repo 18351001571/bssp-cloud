@@ -1,11 +1,11 @@
-package com.cloud.bssp.monitor.sysmenu.controller;
+package com.cloud.bssp.admin.sysmenu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cloud.bssp.monitor.sysmenu.entity.SysMenuDO;
-import com.cloud.bssp.monitor.sysmenu.dto.SysMenuDTO;
-import com.cloud.bssp.monitor.sysmenu.service.SysMenuService;
-import com.cloud.bssp.monitor.sysmenu.convert.SysMenuDoConvert;
+import com.cloud.bssp.admin.sysmenu.entity.SysMenuDO;
+import com.cloud.bssp.admin.sysmenu.dto.SysMenuDTO;
+import com.cloud.bssp.admin.sysmenu.service.SysMenuService;
+import com.cloud.bssp.admin.sysmenu.convert.SysMenuDoConvert;
 import com.cloud.bssp.util.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
