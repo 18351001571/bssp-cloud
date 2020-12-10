@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function report() {
     return request({
-        url: '/bssp-generate-service/report',
+        url: '/bssp-generator-service/generate/report',
         method: 'post',
         responseType: 'blob'
     })
@@ -10,7 +10,7 @@ export function report() {
 
 export function exportPdf(data) {
     return request({
-        url: '/bssp-generate-service/exportPdf',
+        url: '/bssp-generator-service/generate/exportPdf',
         method: 'post',
         responseType: 'blob',
         data
@@ -19,7 +19,7 @@ export function exportPdf(data) {
 
 export function exportHtml(data) {
     return request({
-        url: '/bssp-generate-service/exportHtml',
+        url: '/bssp-generator-service/generate/exportHtml',
         method: 'post',
         responseType: 'blob',
         data
