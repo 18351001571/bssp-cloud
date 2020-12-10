@@ -4,11 +4,25 @@ spring:
   application:
     name: bssp-gateway-service
   cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
-        namespace: 3a44ef28-b35c-44bb-8cd2-873c14ebc911
     gateway:
       discovery:
         locator:
           enabled: true # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
+  redis:
+    host: 101.200.36.168
+    port: 6379
+    timeout: 30000
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: 1ms
+        min-idle: 0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

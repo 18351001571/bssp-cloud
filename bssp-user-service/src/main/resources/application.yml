@@ -38,17 +38,35 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
-
+  redis:
+    host: 101.200.36.168
+    port: 6379
+    timeout: 30000
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: 1ms
+        min-idle: 0
 # 接口文档源配置
 swagger:
   enabled: true
   title: 用户服务
   base-package: com.cloud.bssp.user
   version: V1.0
-  description: 后台admin服务
+  description: 用户服务
   license: Apache License, Version 2.0
   license-url: https://www.apache.org/licenses/LICENSE-2.0.html
   terms-of-service-url: http://localhost:8002/doc.html
   contact: xxxxxxxxxxxx@gmail.com
   authorization: #有auth2 并使用以前的swagger-ui
     key-name: Authorization
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

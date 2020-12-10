@@ -9,7 +9,7 @@ import request from '@/utils/request'
  */
 export function getPageList(data) {
     return request({
-        url: '/generate/pageList',
+        url: '/bssp-generator-service/generate/pageList',
         method: 'post',
         data
     })
@@ -24,7 +24,7 @@ export function getPageList(data) {
  */
 export function generateCode(data) {
     return request({
-        url: '/generate/generateCode',
+        url: '/bssp-generator-service/generate/bssp-generator-service/generateCode',
         method: 'post',
         responseType: 'blob',
         data
@@ -40,7 +40,7 @@ export function generateCode(data) {
  */
 export function previewCode(data) {
     return request({
-        url: '/generate/previewCode',
+        url: '/bssp-generator-service/generate/previewCode',
         method: 'get',
         params: {tableName: data}
     })
@@ -55,7 +55,7 @@ export function previewCode(data) {
  */
 export function saveRules(data) {
     return request({
-        url: '/generate/saveRules',
+        url: '/bssp-generator-service/generate/saveRules',
         method: 'post',
         data
     })
@@ -71,7 +71,7 @@ export function saveRules(data) {
  */
 export function getRules() {
     return request({
-        url: '/generate/getRules',
+        url: '/bssp-generator-service/generate/getRules',
         method: 'get'
     })
 }

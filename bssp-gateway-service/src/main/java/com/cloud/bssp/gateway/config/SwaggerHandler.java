@@ -14,10 +14,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/swagger-resources")
 public class SwaggerHandler {
+
+    /**
+     * 权限配置,没有的不用关注
+     */
     @Autowired(required = false)
     private SecurityConfiguration securityConfiguration;
+
     @Autowired(required = false)
     private UiConfiguration uiConfiguration;
+
     private final SwaggerResourcesProvider swaggerResources;
 
     @Autowired
@@ -38,6 +44,14 @@ public class SwaggerHandler {
                 Optional.ofNullable(uiConfiguration).orElse(UiConfigurationBuilder.builder().build()), HttpStatus.OK));
     }
 
+    /**
+     * 获取接口信息
+     * @date: 2020/12/3
+     * @param
+     * @return reactor.core.publisher.Mono<org.springframework.http.ResponseEntity>
+     * @author weirx
+     * @version 3.0
+     */
     @GetMapping("")
     public Mono<ResponseEntity> swaggerResources() {
         return Mono.just((new ResponseEntity<>(swaggerResources.get(), HttpStatus.OK)));

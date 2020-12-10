@@ -9,7 +9,7 @@ import request from '@/utils/request'
  */
 export function getMenuTree(token) {
     return request({
-        url: '/admin/sysmenu/getTree',
+        url: '/bssp-admin-service/sysmenu/getTree',
         method: 'get',
         params: {token}
     })
@@ -24,7 +24,7 @@ export function getMenuTree(token) {
  */
 export function getPageMenu(data) {
     return request({
-        url: '/admin/sysmenu/pageList',
+        url: '/bssp-admin-service/sysmenu/pageList',
         method: 'post',
         data
     })
@@ -39,7 +39,7 @@ export function getPageMenu(data) {
  */
 export function create(data) {
     return request({
-        url: '/admin/sysmenu/save',
+        url: '/bssp-admin-service/sysmenu/save',
         method: 'post',
         data
     })
@@ -54,7 +54,7 @@ export function create(data) {
  */
 export function update(data) {
     return request({
-        url: '/admin/sysmenu/update',
+        url: '/bssp-admin-service/sysmenu/update',
         method: 'post',
         data
     })

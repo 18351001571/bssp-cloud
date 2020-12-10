@@ -1,8 +1,10 @@
 package com.cloud.bssp.admin;
 
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @description: 数据服务启动类
@@ -14,6 +16,8 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  */
 @SpringBootApplication
 @ServletComponentScan
+@EnableAdminServer
+@EnableDiscoveryClient
 public class BsspMonitorServiceApplication {
 
     public static void main(String[] args) {
