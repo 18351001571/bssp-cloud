@@ -82,7 +82,7 @@ mybatis-plus:
 swagger:
   enabled: true
   title: 用户服务
-  base-package: com.cloud.bssp.admin
+  base-package: com.cloud.bssp.admin22
   version: V1.0
   description: 后台admin服务
   license: Apache License, Version 2.0

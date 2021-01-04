@@ -1,4 +1,4 @@
-package com.cloud.bssp.user;
+package com.cloud.bssp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
