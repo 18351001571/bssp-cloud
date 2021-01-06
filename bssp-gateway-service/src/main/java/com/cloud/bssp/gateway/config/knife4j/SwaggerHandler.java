@@ -1,4 +1,4 @@
-package com.cloud.bssp.gateway.config;
+package com.cloud.bssp.gateway.config.knife4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

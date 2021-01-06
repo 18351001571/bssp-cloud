@@ -1,16 +1,19 @@
-package com.cloud.bssp.designpatterns.singleton.hungry;
+package com.cloud.bssp.designpatterns.singleton.lazy.unsafe;
 
 /**
- * 饿汉模式
+ * 懒汉模式
  * @date: 2021/1/4
  * @author weirx
  * @version 3.0
  */
 public class Singleton {
 
-    private final static Singleton instance = new Singleton();
+    public static Singleton instance;
 
     public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
         return instance;
     }
 
