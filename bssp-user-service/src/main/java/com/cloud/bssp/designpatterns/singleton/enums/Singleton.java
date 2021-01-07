@@ -9,6 +9,7 @@ package com.cloud.bssp.designpatterns.singleton.enums;
 public enum Singleton {
 
     INSTANCE;
+
     public void doSomeThing(){
         System.out.println("this is singleton by enum");
     }

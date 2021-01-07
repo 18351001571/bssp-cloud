@@ -9,7 +9,7 @@ package com.cloud.bssp.designpatterns.singleton.innerclass;
  */
 public class Singleton {
 
-    public static class SingletonHolder {
+    private static class SingletonHolder {
         private static Singleton instance = new Singleton();
     }
 
@@ -17,6 +17,6 @@ public class Singleton {
         return SingletonHolder.instance;
     }
 
-    public Singleton() {
+    private Singleton() {
     }
 }
