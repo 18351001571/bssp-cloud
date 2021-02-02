@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(topic = "test_oneway", selectorExpression = "*", consumerGroup = "test_oneway")
+//@RocketMQMessageListener(topic = "test_oneway", selectorExpression = "*", consumerGroup = "test_oneway")
 public class SimpleOnewayMessageListener implements RocketMQListener<MessageExt> {
 
     @Override

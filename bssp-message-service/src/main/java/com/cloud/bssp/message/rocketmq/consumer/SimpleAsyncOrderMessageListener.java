@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(
-        topic = "test_asyncOrder",
-        selectorExpression = "*",
-        consumerGroup = "test_asyncOrder",
-        consumeMode = ConsumeMode.ORDERLY)
+//@RocketMQMessageListener(
+//        topic = "test_asyncOrder",
+//        selectorExpression = "*",
+//        consumerGroup = "test_asyncOrder",
+//        consumeMode = ConsumeMode.ORDERLY)
 public class SimpleAsyncOrderMessageListener implements RocketMQListener<MessageExt> {
 
     @SneakyThrows

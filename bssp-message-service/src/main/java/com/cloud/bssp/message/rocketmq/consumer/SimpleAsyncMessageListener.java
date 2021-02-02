@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(topic = "test_async", selectorExpression = "*", consumerGroup = "test_async")
+//@RocketMQMessageListener(topic = "test_async", selectorExpression = "*", consumerGroup = "test_async")
 public class SimpleAsyncMessageListener implements RocketMQListener<MessageExt> {
 
     @Override

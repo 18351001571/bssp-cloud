@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(topic = "test_delay", selectorExpression = "*", consumerGroup = "test_delay")
+//@RocketMQMessageListener(topic = "test_delay", selectorExpression = "*", consumerGroup = "test_delay")
 public class SimpleDelayMessageListener implements RocketMQListener<MessageExt> {
 
     @Override
