@@ -7,7 +7,7 @@ var service_name = '/${serviceName}'
  * @author ${author}
  * @date ${date}
  */
-export function get${className}(data) {
+export function getPage${className}(data) {
     return request({
         url: service_name+ '/${classname}/pageList',
         method: 'post',
