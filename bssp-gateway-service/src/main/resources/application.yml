@@ -8,6 +8,13 @@ spring:
       discovery:
         locator:
           enabled: true # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
+#      routes:
+#        - id: bssp-admin-service  # 路由 ID，保持唯一
+#          uri: lb://bssp-admin-service # uri指目标服务地址，lb代表从注册中心获取服务
+#          predicates:
+#            - Path=/sysmenu/getTree/**
+#          filters:
+#            - StripPrefix=0
   redis:
     host: 101.200.36.168
     port: 6379

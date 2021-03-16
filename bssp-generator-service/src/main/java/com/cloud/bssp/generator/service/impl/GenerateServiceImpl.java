@@ -291,7 +291,7 @@ public class GenerateServiceImpl implements GenerateService {
             dataMap.put(template, sw);
             try {
                 // 添加到zip
-                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), generateRule.getPackageName())));
+                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity, generateRule.getPackageName())));
                 IOUtils.write(sw.toString(), zip, "UTF-8");
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
@@ -322,34 +322,40 @@ public class GenerateServiceImpl implements GenerateService {
     /**
      * 获取文件名
      */
-    public static String getFileName(String template, String className, String packageName) {
+    public static String getFileName(String template, TableEntity tableEntity, String packageName) {
         String packagePath = "main" + File.separator + "java" + File.separator;
         if (org.apache.commons.lang3.StringUtils.isNotBlank(packageName)) {
             packagePath += packageName.replace(".", File.separator) + File.separator;
         }
         if (template.contains("Entity.java.vm")) {
-            return packagePath + "entity" + File.separator + className + "DO.java";
+            return packagePath + "entity" + File.separator + tableEntity.getClassName() + "DO.java";
         }
         if (template.contains("Service.java.vm")) {
-            return packagePath + "service" + File.separator + className + "Service.java";
+            return packagePath + "service" + File.separator + tableEntity.getClassName() + "Service.java";
         }
         if (template.contains("ServiceImpl.java.vm")) {
-            return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
+            return packagePath + "service" + File.separator + "impl" + File.separator + tableEntity.getClassName() + "ServiceImpl.java";
         }
         if (template.contains("Mapper.java.vm")) {
-            return packagePath + "mapper" + File.separator + className + "Mapper.java";
+            return packagePath + "mapper" + File.separator + tableEntity.getClassName() + "Mapper.java";
         }
         if (template.contains("Controller.java.vm")) {
-            return packagePath + "controller" + File.separator + className + "Controller.java";
+            return packagePath + "controller" + File.separator + tableEntity.getClassName() + "Controller.java";
         }
         if (template.contains("DTO.java.vm")) {
-            return packagePath + "dto" + File.separator + className + "DTO.java";
+            return packagePath + "dto" + File.separator + tableEntity.getClassName() + "DTO.java";
         }
         if (template.contains("Client.java.vm")) {
-            return packagePath + "api" + File.separator + className + "Client.java";
+            return packagePath + "api" + File.separator + tableEntity.getClassName() + "Client.java";
         }
         if (template.contains("Convert.java.vm")) {
-            return packagePath + "convert" + File.separator + className + "DoConvert.java";
+            return packagePath + "convert" + File.separator + tableEntity.getClassName() + "DoConvert.java";
+        }
+        if (template.contains("Html.vue.vm")) {
+            return  "vue/views" + File.separator + tableEntity.getClassname() + File.separator + "index.vue";
+        }
+        if (template.contains("Api.js.vm")) {
+            return  "vue/api" + File.separator + tableEntity.getClassname() + ".js";
         }
         return null;
     }
@@ -364,6 +370,8 @@ public class GenerateServiceImpl implements GenerateService {
         templates.add("template/DTO.java.vm");
         templates.add("template/Client.java.vm");
         templates.add("template/Convert.java.vm");
+        templates.add("template/Html.vue.vm");
+        templates.add("template/Api.js.vm");
         return templates;
     }
 }

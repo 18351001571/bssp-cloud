@@ -15,18 +15,18 @@
       </el-button>
     </div>
     <el-table
-        v-loading="listLoading"
-        :data="list"
-        element-loading-text="Loading"
-        border
-        fit
-        highlight-current-row
-        style="width: 100%;"
-        @selection-change="handleSelectionChange">
+      v-loading="listLoading"
+      :data="list"
+      element-loading-text="Loading"
+      border
+      fit
+      highlight-current-row
+      style="width: 100%;"
+      @selection-change="handleSelectionChange">
       <el-table-column
-          type="selection"
-          width="40"
-          align="center">
+        type="selection"
+        width="40"
+        align="center">
       </el-table-column>
       <el-table-column label="表名称">
         <template slot-scope="scope">
@@ -96,7 +96,20 @@
     <el-dialog title="预览" :visible.sync="previewVisible">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane v-for="item in templateList" :label="item.key" :name="item.key">
-          <textarea readonly style="width: 100%; height: 400px; border: #99a9bf;resize:none;">{{item.value}}</textarea>
+          <div v-if="item.key && item.key.indexOf('java') != -1">
+            <pre v-highlightjs >
+              <code class="java" style="text-align:left;">
+                {{ item.value }}
+              </code>
+            </pre>
+          </div>
+          <div v-else >
+            <pre v-highlightjs >
+              <code class="vue" style="text-align:left;">
+                {{ item.value }}
+              </code>
+            </pre>
+          </div>
         </el-tab-pane>
       </el-tabs>
       <div slot="footer" class="dialog-footer">
@@ -109,53 +122,53 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import {generateCode, getPageList, getRules, previewCode, saveRules} from "@/api/generate";
+  import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+  import {generateCode, getPageList, getRules, previewCode, saveRules} from "@/api/generate";
 
-export default {
-  components: {Pagination},
-  data() {
-    return {
-      templateList: '',
-      activeName: 'Entity.java',
-      radio: 1,
-      rulesId: '',
-      list: null,
-      listLoading: true,
-      downloadLoading: false,
-      total: 0,
-      listQuery: {
-        page: 1,
-        limit: 10,
-        tableName: ''
-      },
-      dialogStatus: '',
-      // textMap: {
-      //   generateCode: '代码生成规则设置',
-      //   preview: '预览',
-      //   generateRules: '生成规则'
-      // },
-      temp: {},
-      dialogFormVisible: false,
-      previewVisible: false,
-      tableNames: undefined,
-      rules: {
-        author: [{required: true, message: '请输入作者', trigger: 'change'}],
-        packageName: [{required: true, message: '请输入包名', trigger: 'change'}],
-        serviceName: [{required: true, message: '请输入服务名', trigger: 'change'}],
-        tablePrefix: [{required: false, message: '请输入前缀', trigger: 'change'}]
-      },
-      activeTab: 'basic',
-      tableTabs: undefined
-    }
-  },
-  created() {
-    this.getList()
-  },
-  methods: {
-    getList() {
-      this.listLoading = true
-      getPageList(this.listQuery).then(response => {
+  export default {
+    components: {Pagination},
+    data() {
+      return {
+        templateList: '',
+        activeName: 'Entity.java',
+        radio: 1,
+        rulesId: '',
+        list: null,
+        listLoading: true,
+        downloadLoading: false,
+        total: 0,
+        listQuery: {
+          page: 1,
+          limit: 10,
+          tableName: ''
+        },
+        dialogStatus: '',
+        // textMap: {
+        //   generateCode: '代码生成规则设置',
+        //   preview: '预览',
+        //   generateRules: '生成规则'
+        // },
+        temp: {},
+        dialogFormVisible: false,
+        previewVisible: false,
+        tableNames: undefined,
+        rules: {
+          author: [{required: true, message: '请输入作者', trigger: 'change'}],
+          packageName: [{required: true, message: '请输入包名', trigger: 'change'}],
+          serviceName: [{required: true, message: '请输入服务名', trigger: 'change'}],
+          tablePrefix: [{required: false, message: '请输入前缀', trigger: 'change'}]
+        },
+        activeTab: 'basic',
+        tableTabs: undefined
+      }
+    },
+    created() {
+      this.getList()
+    },
+    methods: {
+      getList() {
+        this.listLoading = true
+        getPageList(this.listQuery).then(response => {
             this.total = response.data.total
             this.list = response.data.records
             // Just to simulate the time of the request
@@ -165,126 +178,126 @@ export default {
           },
           error => {
           })
-    },
-    handleFilter() {
-      this.listQuery.page = 1
-      this.getList()
-    },
-    handleSelectionChange(val) {
-      this.tableNames = val;
-    },
-    handleClick() {
-      if (!this.temp.packageName || !this.temp.author) {
-        this.$refs['dataForm'].validate();
-        return false;
-      }
-    },
-    resetTemp() {
-      this.temp = {};
-    },
-    generate(row) {
-      let names = new Array(1);
-      names[0] = row.tableName;
-      this.temp.tableNames = names;
-      this.generateCode();
-      this.resetTemp();
-    },
-    batchGenerate() {
-      if (!this.tableNames) {
-        this.$notify({
-          title: '失败',
-          message: '请至少选择一条记录',
-          type: 'error',
-          duration: 2000
-        });
-        return;
-      }
-      let names = new Array();
-      let tables = this.tableNames;
-      for (let i = 0; i < tables.length; i++) {
-        names[i] = tables[i].tableName;
-      }
-      this.temp.tableNames = names;
-      this.generateCode();
-      this.resetTemp();
-    },
-    generateCode() {
-      generateCode(this.temp).then((res) => {
-        if (!res) {
+      },
+      handleFilter() {
+        this.listQuery.page = 1
+        this.getList()
+      },
+      handleSelectionChange(val) {
+        this.tableNames = val;
+      },
+      handleClick() {
+        if (!this.temp.packageName || !this.temp.author) {
+          this.$refs['dataForm'].validate();
+          return false;
+        }
+      },
+      resetTemp() {
+        this.temp = {};
+      },
+      generate(row) {
+        let names = new Array(1);
+        names[0] = row.tableName;
+        this.temp.tableNames = names;
+        this.generateCode();
+        this.resetTemp();
+      },
+      batchGenerate() {
+        if (!this.tableNames) {
           this.$notify({
             title: '失败',
-            message: '请先设置生成规则',
+            message: '请至少选择一条记录',
             type: 'error',
             duration: 2000
           });
           return;
         }
-        let blob = new Blob([res], {
-          type: 'application/zip'
-        })
-        let fileName = Date.parse(new Date()) + '.zip'
-        if (window.navigator.msSaveOrOpenBlob) {
-          navigator.msSaveBlob(blob, fileName)
-        } else {
-          let link = document.createElement('a')
-          link.href = window.URL.createObjectURL(blob)
-          link.download = fileName
-          link.click()
-          this.dialogFormVisible = false
-          //释放内存
-          window.URL.revokeObjectURL(link.href)
+        let names = new Array();
+        let tables = this.tableNames;
+        for (let i = 0; i < tables.length; i++) {
+          names[i] = tables[i].tableName;
         }
-      })
-    },
-    /**
-     * 生成规则设置页面
-     */
-    generateRules() {
-      this.dialogStatus = 'generateRules'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      });
-      getRules().then((res) => {
-        if (res.code == 0) {
-          let data = res.data;
-          this.temp = {
-            id: data.id,
-            tableNames: '',
-            author: data.author,
-            packageName: data.packageName,
-            serviceName: data.serviceName,
-            tablePrefix: data.tablePrefix,
-            isIgnorePrefix: data.isIgnorePrefix,
+        this.temp.tableNames = names;
+        this.generateCode();
+        this.resetTemp();
+      },
+      generateCode() {
+        generateCode(this.temp).then((res) => {
+          if (!res) {
+            this.$notify({
+              title: '失败',
+              message: '请先设置生成规则',
+              type: 'error',
+              duration: 2000
+            });
+            return;
           }
-        }
-      })
-    },
-    confirmRules() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          this.temp.isIgnorePrefix = this.radio;
-          saveRules(this.temp).then((res) => {
-            if (res.code == 0) {
-              this.dialogFormVisible = false;
-              this.$notify({
-                title: '成功',
-                message: '设置成功',
-                type: 'success',
-                duration: 2000
-              })
-            }
+          let blob = new Blob([res], {
+            type: 'application/zip'
           })
-        }
-      })
-    },
-    preview(row) {
-      previewCode(row.tableName).then((res) => {
-        this.templateList = res.data;
-        console.log(this.templateList);
-        this.previewVisible = true;
-      })
+          let fileName = Date.parse(new Date()) + '.zip'
+          if (window.navigator.msSaveOrOpenBlob) {
+            navigator.msSaveBlob(blob, fileName)
+          } else {
+            let link = document.createElement('a')
+            link.href = window.URL.createObjectURL(blob)
+            link.download = fileName
+            link.click()
+            this.dialogFormVisible = false
+            //释放内存
+            window.URL.revokeObjectURL(link.href)
+          }
+        })
+      },
+      /**
+       * 生成规则设置页面
+       */
+      generateRules() {
+        this.dialogStatus = 'generateRules'
+        this.dialogFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['dataForm'].clearValidate()
+        });
+        getRules().then((res) => {
+          if (res.code == 0) {
+            let data = res.data;
+            this.temp = {
+              id: data.id,
+              tableNames: '',
+              author: data.author,
+              packageName: data.packageName,
+              serviceName: data.serviceName,
+              tablePrefix: data.tablePrefix,
+              isIgnorePrefix: data.isIgnorePrefix,
+            }
+          }
+        })
+      },
+      confirmRules() {
+        this.$refs['dataForm'].validate((valid) => {
+          if (valid) {
+            this.temp.isIgnorePrefix = this.radio;
+            saveRules(this.temp).then((res) => {
+              if (res.code == 0) {
+                this.dialogFormVisible = false;
+                this.$notify({
+                  title: '成功',
+                  message: '设置成功',
+                  type: 'success',
+                  duration: 2000
+                })
+              }
+            })
+          }
+        })
+      },
+      preview(row) {
+        previewCode(row.tableName).then((res) => {
+          this.templateList = res.data;
+          console.log(this.templateList);
+          this.previewVisible = true;
+        })
+      }
     }
   }
-}
 </script>

@@ -24,7 +24,7 @@ export function getPageList(data) {
  */
 export function generateCode(data) {
     return request({
-        url: '/bssp-generator-service/generate/bssp-generator-service/generateCode',
+        url: '/bssp-generator-service/generate/generateCode',
         method: 'post',
         responseType: 'blob',
         data

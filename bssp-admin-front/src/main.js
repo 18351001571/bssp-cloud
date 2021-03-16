@@ -15,6 +15,10 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import VueHighlightJS from 'vue-highlightjs'
+import 'highlight.js/styles/atom-one-dark.css'
+Vue.use(VueHighlightJS)
+
 import htmlToPdf from '@/utils/htmlToPdf.js'
 // 使用Vue.use()方法就会调用工具方法中的install方法
 Vue.use(htmlToPdf)

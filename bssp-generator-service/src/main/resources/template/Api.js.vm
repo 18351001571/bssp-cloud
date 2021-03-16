@@ -1,0 +1,44 @@
+import request from '@/utils/request'
+
+var service_name = '/${serviceName}'
+/**
+ * @description: 分页列表
+ *
+ * @author ${author}
+ * @date ${date}
+ */
+export function get${className}(data) {
+    return request({
+        url: service_name+ '/${classname}/pageList',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * @description: 新增
+ *
+ * @author ${author}
+ * @date ${date}
+ */
+export function create(data) {
+    return request({
+        url: service_name+ '/${classname}/save',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * @description: 更新
+ *
+ * @author ${author}
+ * @date ${date}
+ */
+export function update(data) {
+    return request({
+        url: service_name+ '/${classname}/update',
+        method: 'post',
+        data
+    })
+}
