@@ -1,7 +1,7 @@
-package ${package}.api;
+package com.cloud.bssp.user.api;
 
 import com.cloud.bssp.util.R;
-import ${package}.dto.${className}DTO;
+import com.cloud.bssp.user.dto.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 /**
- * Description: ${comments}
- * Create Date: ${date}
+ * Description: 用户表
+ * Create Date: 2021-03-17T13:53:59.025
  * Modified By：<br>
  * Modified Date：<br>
  * Why & What is modified：<br>
  *
- * @author ${author}
- * @version ${version}
+ * @author weirx
+ * @version 1.0
  */
-@FeignClient(name = "${serviceName}", path = "/${pathName}", contextId = "base")
-public interface ${className}Client {
+@FeignClient(name = "bssp-user-service", path = "/user", contextId = "base")
+public interface UserClient {
 
     /**
      * 分页列表
@@ -33,11 +33,11 @@ public interface ${className}Client {
 
     /**
      * list列表
-     * @param ${classname}DTO
+     * @param userDTO
      * @return
      */
     @PostMapping("/list")
-    R list(@RequestBody ${className}DTO ${classname}DTO);
+    R list(@RequestBody UserDTO userDTO);
 
     /**
      * 根据主键查询
@@ -49,17 +49,17 @@ public interface ${className}Client {
 
     /**
      * 新增
-     * @param ${classname}DTO
+     * @param userDTO
      * @return
      */
     @PostMapping("/save")
-    R save(@RequestBody ${className}DTO ${classname}DTO);
+    R save(@RequestBody UserDTO userDTO);
 
     /**
      * 更新
-     * @param ${classname}DTO
+     * @param userDTO
      * @return
      */
     @PostMapping("/update")
-    R update(@RequestBody ${className}DTO ${classname}DTO);
+    R update(@RequestBody UserDTO userDTO);
 }
